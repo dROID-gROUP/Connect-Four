@@ -39,6 +39,7 @@ public class settingActivity extends Activity implements android.view.View.OnCli
 	int selectedDifficulty;
 	int selectedRow;
 	int selectedColumn;
+	String firstTurn;
 	
 	
 	
@@ -57,6 +58,8 @@ public class settingActivity extends Activity implements android.view.View.OnCli
 		
 		buttonSetting 		 = (Button) findViewById(R.id.buttonSetting);
 		buttonSetting.setOnClickListener(this);
+		
+		radioGroupForFirstTurn = (RadioGroup) findViewById(R.id.radioGroup);
 		
 		addItemsOnSpinners();
 		
@@ -112,8 +115,20 @@ public class settingActivity extends Activity implements android.view.View.OnCli
 		
 		if(v.getId() == buttonSetting.getId())
 		{
-			Toast.makeText(context, "Your Settings Are Applied!" +spinnerForDifficulty.getSelectedItem()
+			
+			if(radioGroupForFirstTurn.getCheckedRadioButtonId() == R.id.radio0)
+			{
+				firstTurn = "Human";
+			}
+			else if (radioGroupForFirstTurn.getCheckedRadioButtonId() == R.id.radio1) 
+			{
+				firstTurn = "Computer";
+			}
+			
+			Toast.makeText(context, "Your Settings Are Applied!" + firstTurn + ":" +spinnerForDifficulty.getSelectedItem()
 					+ ":" + spinnerForRow.getSelectedItem() + ":" + spinnerForColumn.getSelectedItem(), Toast.LENGTH_SHORT).show();
+			
+			
 			finish();
 		}
 		
