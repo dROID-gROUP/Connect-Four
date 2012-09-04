@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:fillViewport="true"
+    android:layout_height="wrap_content" >
+
+	<RelativeLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent" >
+	
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true"
+	        android:paddingTop="30dp"
+	        android:orientation="vertical" >
+	
+	        <TextView
+	            android:id="@+id/emailaddresstextview"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Email Address :"
+	            android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+	        <EditText
+	            android:id="@+id/emailaddressedittext"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:ems="10"
+	            android:inputType="textEmailAddress" >
+	
+	            <requestFocus />
+	        </EditText>
+	
+	        <TextView
+	            android:id="@+id/passwordtextview"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Password :"
+	            android:layout_marginTop="10dp"
+	            android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+	        <EditText
+	            android:id="@+id/passwordtedittext"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:ems="10"
+	            android:inputType="textPassword" />
+	
+	        <LinearLayout
+	            android:layout_width="fill_parent"
+	            android:layout_height="fill_parent"
+	            android:orientation="vertical"
+	            android:layout_marginTop="50dp" >
+	
+	            <Button
+	                android:id="@+id/loginbutton"
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:text="Login" />
+	
+	            <TextView
+	                android:id="@+id/linktoregister"
+	                android:layout_width="fill_parent"
+	                android:gravity="center"
+	                android:layout_height="wrap_content"
+	                android:text="Not Registered! Register here"
+	                android:textColor="#0b84aa"
+	                android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	        </LinearLayout>
+	        
+	    </LinearLayout>
+	
+	</RelativeLayout>
+</ScrollView>
