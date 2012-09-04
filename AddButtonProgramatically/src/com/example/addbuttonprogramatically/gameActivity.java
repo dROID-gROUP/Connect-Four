@@ -27,6 +27,7 @@ public class gameActivity extends Activity implements OnClickListener{
     private Game game;
     private int row=5,column=5,difficulty=5,firstTurn=1,userId;
     SQLiteDatabase db;
+    private String tag = "gameActivity"; 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
     	
@@ -188,17 +189,21 @@ public class gameActivity extends Activity implements OnClickListener{
 					gameState+=game.mat[i][j];
 				}
 			}
+			Log.d(tag, "gamestate = "+gameState);
 			db = homeActivity.dbHelper.getWritableDatabase();
 			try 
 			{
 				ContentValues values = new ContentValues();
 				values.put(DbHelper.userId, userId);
 				values.put(DbHelper.gameState, gameState);
+				Log.d(tag, String.format("before insert %d: %s", userId, gameState));			
 				db.insertWithOnConflict(DbHelper.table, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+				Log.d(tag, "save game");
 			} 
 			catch (Exception e) 
 			{
 				db.close();
+				Log.d(tag, e.toString());
 			}
 			
 			

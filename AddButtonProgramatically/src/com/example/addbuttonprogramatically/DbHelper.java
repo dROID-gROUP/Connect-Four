@@ -27,7 +27,7 @@ public class DbHelper extends SQLiteOpenHelper
 	public void onCreate(SQLiteDatabase db) 
 	{
 		// TODO Auto-generated method stub
-		String sql = "create table "+ table + " ("+ userId +" int primary key, "+gameState+" text";
+		String sql = "create table "+ table + " ("+ userId +" int primary key, "+gameState+" text)";
 		//Log.d(TAG, "In DBHelper On Create before execsql");
 		db.execSQL(sql);
 		Log.d(TAG, "In DBHelper On Create");

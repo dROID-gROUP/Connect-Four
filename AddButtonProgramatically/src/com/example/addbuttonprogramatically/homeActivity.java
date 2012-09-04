@@ -77,6 +77,12 @@ public class homeActivity extends Activity implements OnClickListener
 			intent = new Intent(context, gameActivity.class);
 			startActivity(intent);
 		}
+		else if(v.getId() == button_resumegame.getId())
+		{
+			
+			intent = new Intent(context, gameActivity.class);
+			startActivity(intent);
+		}
 		else if(v.getId() == button_gamesetting.getId())
 		{
 			intent = new Intent(context, settingActivity.class);
