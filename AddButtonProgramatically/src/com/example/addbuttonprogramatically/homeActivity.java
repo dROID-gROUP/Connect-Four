@@ -16,7 +16,7 @@ public class homeActivity extends Activity implements OnClickListener{
 	Button button_resumegame;
 	Button button_highscores;
 	Button button_aboutus;
-	Button button_gamelevel;
+	Button button_gamesetting;
 	Context context;
 	Intent intent;
 	
@@ -29,7 +29,7 @@ public class homeActivity extends Activity implements OnClickListener{
 		
 		button_newgame = (Button) findViewById(R.id.startnewgame);
 		button_resumegame = (Button) findViewById(R.id.resumegame);
-		button_gamelevel = (Button) findViewById(R.id.gamelevel);
+		button_gamesetting = (Button) findViewById(R.id.gamesetting);
 		button_highscores = (Button) findViewById(R.id.highscore);
 		button_register = (Button) findViewById(R.id.registeruser);
 		button_login = (Button) findViewById(R.id.login);
@@ -37,7 +37,7 @@ public class homeActivity extends Activity implements OnClickListener{
 		
 		button_newgame.setOnClickListener(this);
 		button_resumegame.setOnClickListener(this);
-		button_gamelevel.setOnClickListener(this);
+		button_gamesetting.setOnClickListener(this);
 		button_highscores.setOnClickListener(this);
 		button_register.setOnClickListener(this);
 		button_login.setOnClickListener(this);
@@ -71,6 +71,12 @@ public class homeActivity extends Activity implements OnClickListener{
 			intent = new Intent(context, gameActivity.class);
 			startActivity(intent);
 		}
+		else if(v.getId() == button_gamesetting.getId())
+		{
+			intent = new Intent(context, settingActivity.class);
+			startActivity(intent);
+		}
+		
 		
 	}
 
