@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class homeActivity extends Activity implements OnClickListener{
-
+public class homeActivity extends Activity implements OnClickListener
+{
+	private String tag = "homeActivity";
 	Button button_login;
 	Button button_register;
 	Button button_newgame;
@@ -19,10 +21,11 @@ public class homeActivity extends Activity implements OnClickListener{
 	Button button_gamesetting;
 	Context context;
 	Intent intent;
-	
+	static DbHelper dbHelper;
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) 
+	{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.homepage);
@@ -44,6 +47,9 @@ public class homeActivity extends Activity implements OnClickListener{
 		button_aboutus.setOnClickListener(this);
 		
 		context = getApplicationContext();
+		Log.d(tag, "On create homeActivity");
+		dbHelper = new DbHelper(this);
+		Log.d(tag, "On create homeActivity after dbhelper");
 		
 	}
 

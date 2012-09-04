@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.Menu;
@@ -23,7 +25,8 @@ import android.text.Layout;
 public class gameActivity extends Activity implements OnClickListener{
 
     private Game game;
-    private int row=5,column=5,difficulty=5,firstTurn=1;
+    private int row=5,column=5,difficulty=5,firstTurn=1,userId;
+    SQLiteDatabase db;
 	@Override
     public void onCreate(Bundle savedInstanceState) {
     	
@@ -36,7 +39,7 @@ public class gameActivity extends Activity implements OnClickListener{
         linearLayout.setPadding(5, 5, 5, 5);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         int buttonNumber = 0;
-        
+        userId = 0;
         for(int i=0 ; i < row ; ++i)
         {
         	
@@ -160,7 +163,7 @@ public class gameActivity extends Activity implements OnClickListener{
 			
 			switch (which) {
 			case DialogInterface.BUTTON_POSITIVE:
-				
+				saveGame();
 				Toast.makeText(getApplicationContext(), "Your Game Is Saved", Toast.LENGTH_SHORT).show();
 				finish();
 				break;
@@ -172,6 +175,35 @@ public class gameActivity extends Activity implements OnClickListener{
 				break;
 			}
 			
+		}
+
+		private void saveGame() 
+		{
+			// TODO Auto-generated method stub
+			String gameState="";
+			for(int i=0;i<row;i++)
+			{
+				for(int j=0;j<column;j++)
+				{
+					gameState+=game.mat[i][j];
+				}
+			}
+			db = homeActivity.dbHelper.getWritableDatabase();
+			try 
+			{
+				ContentValues values = new ContentValues();
+				values.put(DbHelper.userId, userId);
+				values.put(DbHelper.gameState, gameState);
+				db.insertWithOnConflict(DbHelper.table, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+			} 
+			catch (Exception e) 
+			{
+				db.close();
+			}
+			
+			
+			
+			return;
 		}
 	};
 
