@@ -21,7 +21,7 @@
 	                android:id="@+id/startnewgame"
 	                android:layout_width="fill_parent"
 	                android:layout_height="wrap_content"
-	                android:text="Start New Game" />
+	                android:text="Start New Game"	                android:textStyle="bold"	                android:textSize="14px" />
 	            
 	        </LinearLayout>
 	        
@@ -33,7 +33,7 @@
 	                android:id="@+id/resumegame"
 	                android:layout_width="fill_parent"
 	                android:layout_height="wrap_content"
-	                android:text="Resume Game" />
+	                android:text="Resume Game"	                android:textStyle="bold"	                android:textSize="14px" />
 	            
 	        </LinearLayout>
 	        
@@ -46,7 +46,7 @@
 	                android:id="@+id/highscore"
 	                android:layout_width="fill_parent"
 	                android:layout_height="wrap_content"
-	                android:text="High Score" />
+	                android:text="High Score"	                android:textStyle="bold"	                android:textSize="14px" />
 	            
 	        </LinearLayout>
 	        
@@ -58,7 +58,7 @@
 	                android:id="@+id/gamesetting"
 	                android:layout_width="fill_parent"
 	                android:layout_height="wrap_content"
-	                android:text="Game Settings" />
+	                android:text="Game Settings"	                android:textStyle="bold"	                android:textSize="14px" />
 	            
 	        </LinearLayout>
 	        
@@ -72,7 +72,7 @@
 	                android:id="@+id/registeruser"
 	                android:layout_width="fill_parent"
 	                android:layout_height="wrap_content"
-	                android:text="Create Account" />
+	                android:text="Create Account"	                android:textStyle="bold"	                android:textSize="14px" />
 	            
 	        </LinearLayout>
 	        
@@ -85,7 +85,7 @@
 	                android:id="@+id/login"
 	                android:layout_width="fill_parent"
 	                android:layout_height="wrap_content"
-	                android:text="Login Account" />
+	                android:text="Login Account"	                android:textStyle="bold"	                android:textSize="14px" />
 	            
 	        </LinearLayout>
 	        
@@ -97,7 +97,7 @@
 	                android:id="@+id/aboutus"
 	                android:layout_width="fill_parent"
 	                android:layout_height="wrap_content"
-	                android:text="About Us" />
+	                android:text="About Us"	                android:textStyle="bold"	                android:textSize="14px" />
 	            
 	        </LinearLayout>
 	        

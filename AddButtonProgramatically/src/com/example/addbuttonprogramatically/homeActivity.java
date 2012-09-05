@@ -3,6 +3,7 @@ package com.example.addbuttonprogramatically;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +38,22 @@ public class homeActivity extends Activity implements OnClickListener
 		button_register = (Button) findViewById(R.id.registeruser);
 		button_login = (Button) findViewById(R.id.login);
 		button_aboutus = (Button) findViewById(R.id.aboutus);
+		
+		button_newgame.setBackgroundResource(R.drawable.button);
+		button_newgame.setTextColor(Color.WHITE);
+		button_resumegame.setBackgroundResource(R.drawable.button);
+		button_resumegame.setTextColor(Color.WHITE);
+		button_gamesetting.setBackgroundResource(R.drawable.button);
+		button_gamesetting.setTextColor(Color.WHITE);
+		button_highscores.setBackgroundResource(R.drawable.button);
+		button_highscores.setTextColor(Color.WHITE);
+		button_register.setBackgroundResource(R.drawable.button);
+		button_register.setTextColor(Color.WHITE);
+		button_login.setBackgroundResource(R.drawable.button);
+		button_login.setTextColor(Color.WHITE);
+		button_aboutus.setBackgroundResource(R.drawable.button);
+		button_aboutus.setTextColor(Color.WHITE);
+		
 		
 		button_newgame.setOnClickListener(this);
 		button_resumegame.setOnClickListener(this);
