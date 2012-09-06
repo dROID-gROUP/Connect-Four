@@ -25,7 +25,7 @@ import android.text.Layout;
 public class gameActivity extends Activity implements OnClickListener{
 
     private Game game;
-    private int row=5,column=5,difficulty=5,firstTurn=1,userId;
+    private int row=6,column=6,difficulty=5,firstTurn=1,userId;
     SQLiteDatabase db;
     private String tag = "gameActivity"; 
 	@Override

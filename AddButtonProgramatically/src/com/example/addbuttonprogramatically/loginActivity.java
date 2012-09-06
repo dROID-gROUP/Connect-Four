@@ -13,7 +13,7 @@ public class loginActivity extends Activity implements OnClickListener{
 	TextView registerTextView;
 	Context context;
 	Intent intent;
-
+	static int userId = 0;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub

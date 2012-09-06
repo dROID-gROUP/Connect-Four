@@ -26,7 +26,7 @@ public class Game
     int[] Row = new int[100];
     int[] Column = new int[100];
     int[] flag = new int[100];
-    int[][] mat = new int[100][100];
+    int[][] mat = new int[20][20];
     int[] step = new int[100];
     int[] s = new int[100];
     private int[] ss = new int[100];
@@ -125,10 +125,10 @@ public class Game
     {
         int i,j;
         turn = row*column;
-        for(i=0;i<100;i++)
+        for(i=0;i<row;i++)
         {
             flag[i]=0;
-            for(j=0;j<100;j++)
+            for(j=0;j<column;j++)
                 mat[i][j]=0;
         }
     }

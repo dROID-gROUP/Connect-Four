@@ -38,7 +38,6 @@ public class registerActivity extends Activity implements OnClickListener{
 		
 		if(loginTextView.getId() == v.getId())
 		{
-			
 			intent = new Intent(context, loginActivity.class);
 			startActivity(intent);
 			

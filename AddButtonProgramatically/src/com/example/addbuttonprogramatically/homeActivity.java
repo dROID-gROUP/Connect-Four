@@ -96,7 +96,8 @@ public class homeActivity extends Activity implements OnClickListener
 		}
 		else if(v.getId() == button_resumegame.getId())
 		{
-			
+			String str = dbHelper.getUserGameState();
+			Log.d(tag, "Resume Button = "+str);
 			intent = new Intent(context, gameActivity.class);
 			startActivity(intent);
 		}
