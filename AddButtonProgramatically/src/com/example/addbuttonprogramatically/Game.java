@@ -30,12 +30,14 @@ public class Game
     int[] step = new int[100];
     int[] s = new int[100];
     private int[] ss = new int[100];
-    public Game(int row,int column,int difficulty,int first_move)
+    ConnectFourApplication connectFourApplication;
+    public Game(int row,int column,int difficulty,int first_move,ConnectFourApplication connectFourApplication)
     {
         this.first_move = first_move;
         this.row = row;
         this.column = column;
         this.difficulty = ++difficulty;
+        this.connectFourApplication = connectFourApplication;
         initializeVariables();
         //initiateGame();
     }
@@ -129,7 +131,7 @@ public class Game
         {
             flag[i]=0;
             for(j=0;j<column;j++)
-                mat[i][j]=0;
+                mat[i][j]=connectFourApplication.mat[i][j];
         }
     }
 

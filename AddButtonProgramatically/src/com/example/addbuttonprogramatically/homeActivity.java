@@ -23,14 +23,15 @@ public class homeActivity extends Activity implements OnClickListener
 	Context context;
 	Intent intent;
 	static DbHelper dbHelper;
-	
+	ConnectFourApplication connectFourApplication;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.homepage);
-		
+		Log.d(tag,"Before");
+		Log.d(tag,"After");
 		button_newgame = (Button) findViewById(R.id.startnewgame);
 		button_resumegame = (Button) findViewById(R.id.resumegame);
 		button_gamesetting = (Button) findViewById(R.id.gamesetting);
@@ -76,8 +77,9 @@ public class homeActivity extends Activity implements OnClickListener
 		super.onResume();
 	}
 
-	public void onClick(View v) {
-		
+	public void onClick(View v) 
+	{	
+		connectFourApplication = (ConnectFourApplication)getApplication();
 		
 		if(v.getId() == button_login.getId())
 		{
@@ -97,7 +99,12 @@ public class homeActivity extends Activity implements OnClickListener
 		else if(v.getId() == button_resumegame.getId())
 		{
 			String str = dbHelper.getUserGameState();
-			Log.d(tag, "Resume Button = "+str);
+			if(str=="")
+			{
+				return;
+			}
+			connectFourApplication.row = connectFourApplication.column =  (int)Math.ceil(Math.sqrt((double)str.length()));
+			connectFourApplication.populateGameMatrix(str);
 			intent = new Intent(context, gameActivity.class);
 			startActivity(intent);
 		}
@@ -105,8 +112,7 @@ public class homeActivity extends Activity implements OnClickListener
 		{
 			intent = new Intent(context, settingActivity.class);
 			startActivity(intent);
-		}
-		
+		}		
 		
 	}
 

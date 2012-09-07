@@ -2,6 +2,7 @@ package com.example.addbuttonprogramatically;
 
 import android.R.string;
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -40,7 +41,7 @@ public class settingActivity extends Activity implements android.view.View.OnCli
 	int selectedRow;
 	int selectedColumn;
 	String firstTurn;
-	
+	ConnectFourApplication connectFourApplication;
 	
 	
 
@@ -125,9 +126,13 @@ public class settingActivity extends Activity implements android.view.View.OnCli
 				firstTurn = "Computer";
 			}
 			
+			
 			Toast.makeText(context, "Your Settings Are Applied!" + firstTurn + ":" +spinnerForDifficulty.getSelectedItem()
 					+ ":" + spinnerForRow.getSelectedItem() + ":" + spinnerForColumn.getSelectedItem(), Toast.LENGTH_SHORT).show();
-			
+			connectFourApplication = (ConnectFourApplication)getApplication();
+			connectFourApplication.row = (Integer) spinnerForRow.getSelectedItem();
+			connectFourApplication.column = (Integer) spinnerForColumn.getSelectedItem();
+			connectFourApplication.difficulty= (Integer) spinnerForDifficulty.getSelectedItem();
 			
 			finish();
 		}

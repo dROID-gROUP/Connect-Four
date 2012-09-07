@@ -27,13 +27,19 @@ public class gameActivity extends Activity implements OnClickListener{
     private Game game;
     private int row=6,column=6,difficulty=5,firstTurn=1,userId;
     SQLiteDatabase db;
-    private String tag = "gameActivity"; 
+    private String tag = "gameActivity";
+    ConnectFourApplication connectFourApplication = (ConnectFourApplication)getApplication();
+    
+    
 	@Override
     public void onCreate(Bundle savedInstanceState) {
     	
         super.onCreate(savedInstanceState);
         
-        game = new Game(row, column, difficulty, firstTurn);
+        row = connectFourApplication.row;
+        column = connectFourApplication.column;
+        difficulty = connectFourApplication.difficulty;
+        game = new Game(row, column, difficulty, firstTurn,connectFourApplication);
         
         LinearLayout linearLayout = new LinearLayout(this);
         linearLayout.setBackgroundColor(Color.BLACK);
@@ -198,11 +204,12 @@ public class gameActivity extends Activity implements OnClickListener{
 				values.put(DbHelper.gameState, gameState);
 				Log.d(tag, String.format("before insert %d: %s", userId, gameState));			
 				db.insertWithOnConflict(DbHelper.table, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+				db.close();
 				Log.d(tag, "save game");
 			} 
 			catch (Exception e) 
 			{
-				db.close();
+				db.close();db.close();
 				Log.d(tag, e.toString());
 			}
 			

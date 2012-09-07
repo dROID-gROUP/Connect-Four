@@ -34,11 +34,7 @@ public class DbHelper extends SQLiteOpenHelper
 	}
 
 	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) 
-	{
-		// TODO Auto-generated method stub
-		
-	}
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){}
 
 	public String getUserGameState() 
 	{
@@ -50,8 +46,21 @@ public class DbHelper extends SQLiteOpenHelper
 		{
 			str = cursor.getString(cursor.getColumnIndex(gameState));
 		}
-		Log.d(tag, "in dbhelper getUserGameState = "+str);
+		
+		String whereClause = DbHelper.userId+" = ?";
+		String[] whereArgs = {ConnectFourApplication.userId+""};
+		delete(DbHelper.table,whereClause,whereArgs);
+		
+		Log.d(tag, "in dbhelper getUserGameState userid= "+DbHelper.userId+" gamestate = "+str);
 		return str;
+	}
+
+	//Delete all save games of the user
+	public void delete(String tableName, String whereClause, String[] whereArgs) 
+	{
+		db = this.getWritableDatabase();
+		int deletedRow = db.delete(tableName, whereClause, whereArgs);
+		Log.d(tag,"Deleted Row = "+deletedRow);
 	}
 	
 
