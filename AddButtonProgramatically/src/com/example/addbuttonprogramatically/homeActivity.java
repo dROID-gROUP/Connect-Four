@@ -79,8 +79,9 @@ public class homeActivity extends Activity implements OnClickListener
 
 	public void onClick(View v) 
 	{	
+		Log.d(tag, "before get");
 		connectFourApplication = (ConnectFourApplication)getApplication();
-		
+		Log.d(tag, "after get");
 		if(v.getId() == button_login.getId())
 		{
 			intent = new Intent(context, loginActivity.class);

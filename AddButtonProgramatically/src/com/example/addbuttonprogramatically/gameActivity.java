@@ -28,14 +28,15 @@ public class gameActivity extends Activity implements OnClickListener{
     private int row=6,column=6,difficulty=5,firstTurn=1,userId;
     SQLiteDatabase db;
     private String tag = "gameActivity";
-    ConnectFourApplication connectFourApplication = (ConnectFourApplication)getApplication();
+    private boolean gameFinished = false;
+    ConnectFourApplication connectFourApplication;
     
     
 	@Override
     public void onCreate(Bundle savedInstanceState) {
     	
         super.onCreate(savedInstanceState);
-        
+        connectFourApplication= (ConnectFourApplication)getApplication();
         row = connectFourApplication.row;
         column = connectFourApplication.column;
         difficulty = connectFourApplication.difficulty;
@@ -92,7 +93,7 @@ public class gameActivity extends Activity implements OnClickListener{
 
 	public void onClick(View v) 
 	{		
-		Log.d("CLICKED ON BUTTON ID", String.valueOf(v.getId()));
+		Log.d(tag, "CLICKED ON BUTTON ID "+String.valueOf(v.getId()));
 		
 		int id = v.getId();
 		int rw = id/row;
@@ -104,36 +105,45 @@ public class gameActivity extends Activity implements OnClickListener{
 		else
 		{
 			
-			game.turn--;
-			game.symbol = 4;
-			rw = row-game.flag[col]-1;
-			id = column*rw + col;
-	        v = findViewById(id);
-	        humanTurn(col,v);
+			if(!gameFinished)
+			{
+				game.turn--;
+				game.symbol = 4;
+				rw = row-game.flag[col]-1;
+				id = column*rw + col;
+		        v = findViewById(id);
+		        humanTurn(col,v);
+			}
 	       
-	        game.symbol = 9;
-	        col = game.AI_Turn();
-	        rw = row-game.flag[col]-1;
-	        id = column*rw + col;
-	        v = findViewById(id);
-			AITurn(col,v);
+	        if(!gameFinished)
+	        {
+		        game.symbol = 9;
+		        game.turn--;
+		        col = game.AI_Turn();
+		        rw = row-game.flag[col]-1;
+		        id = column*rw + col;
+		        v = findViewById(id);
+				AITurn(col,v);
+	        }
 		}
 		
 		
 	}
 	void humanTurn(int col,View v)
 	{
-		Log.d("In human", String.valueOf(v.getId())+" "+col);
+		Log.d(tag, "In Human "+String.valueOf(v.getId())+" "+col);
 		game.mat[game.flag[col]++][col]=game.symbol;
         v.setBackgroundResource(R.drawable.gridwithred);
         AlertDialog.Builder builderForAlertBox = new AlertDialog.Builder(this);
         if(game.Win(game.flag[col]-1,col))
         {
+        	gameFinished = true;
         	builderForAlertBox.setCancelable(false).setMessage("YOU WON\n"+"AI Says : I was going Eazy on you ;-)").
         	setPositiveButton("ok", gameFinishListener).show();
         }
         if(game.turn==0)
         {
+        	gameFinished = true;
         	builderForAlertBox.setCancelable(false).setMessage("Game Draw\n"+"AI Says : Feeling Lucky Punk!!??").
          	setPositiveButton("ok", gameFinishListener).show();
         }
@@ -141,17 +151,19 @@ public class gameActivity extends Activity implements OnClickListener{
 	void AITurn (int col,View v)
 	{
 		 
-		 Log.d("In AI", String.valueOf(v.getId())+" "+col);
+		 Log.d(tag, "In AI "+String.valueOf(v.getId())+" "+col);
 		 v.setBackgroundResource(R.drawable.blueball);
 		 game.mat[game.flag[col]++][col]=game.symbol;
 		 AlertDialog.Builder builderForAlertBox = new AlertDialog.Builder(this);
 		 if(game.Win(game.flag[col]-1,col))
          {
+			gameFinished = true;
          	builderForAlertBox.setCancelable(false).setMessage("AI WON\n"+"AI Says : Well I guess it's time for another Evoulution >:P ").
          	setPositiveButton("ok", gameFinishListener).show();
          }
 		 if(game.turn==0)
          {
+			gameFinished = true;
         	builderForAlertBox.setCancelable(false).setMessage("Game Draw\n"+"AI Says : Feeling Lucky Punk!!??").
           	setPositiveButton("ok", gameFinishListener).show();
          }
