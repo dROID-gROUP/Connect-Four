@@ -6,6 +6,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -58,6 +59,9 @@ public class settingActivity extends Activity implements android.view.View.OnCli
 		spinnerForColumn	 = (Spinner) findViewById(R.id.spinnerForColumn);
 		
 		buttonSetting 		 = (Button) findViewById(R.id.buttonSetting);
+		buttonSetting.setBackgroundResource(R.drawable.button);
+		buttonSetting.setTextColor(Color.WHITE);
+		
 		buttonSetting.setOnClickListener(this);
 		
 		radioGroupForFirstTurn = (RadioGroup) findViewById(R.id.radioGroup);
@@ -129,10 +133,14 @@ public class settingActivity extends Activity implements android.view.View.OnCli
 			
 			Toast.makeText(context, "Your Settings Are Applied!" + firstTurn + ":" +spinnerForDifficulty.getSelectedItem()
 					+ ":" + spinnerForRow.getSelectedItem() + ":" + spinnerForColumn.getSelectedItem(), Toast.LENGTH_SHORT).show();
+			
+			
 			connectFourApplication = (ConnectFourApplication)getApplication();
-			connectFourApplication.row = (Integer) spinnerForRow.getSelectedItem();
-			connectFourApplication.column = (Integer) spinnerForColumn.getSelectedItem();
-			connectFourApplication.difficulty= (Integer) spinnerForDifficulty.getSelectedItem();
+			connectFourApplication.row = Integer.parseInt(spinnerForRow.getSelectedItem().toString());
+			connectFourApplication.column = Integer.parseInt(spinnerForColumn.getSelectedItem().toString());
+			connectFourApplication.difficulty= Integer.parseInt(spinnerForDifficulty.getSelectedItem().toString());
+			
+			
 			
 			finish();
 		}
