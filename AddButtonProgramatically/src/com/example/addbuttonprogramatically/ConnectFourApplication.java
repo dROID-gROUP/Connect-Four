@@ -23,6 +23,16 @@ public class ConnectFourApplication extends android.app.Application
 	{
 		super.onTerminate();
 	}
+	void applicationGameMatrixInitialize()
+	{
+		for(int i=0;i<row;i++)
+		{
+			for(int j=0;j<column;j++)
+			{
+				mat[i][j]=0;
+			}
+		}
+	}
 	
 	public void populateGameMatrix(String gameState)
 	{

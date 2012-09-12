@@ -7,12 +7,15 @@ package com.example.addbuttonprogramatically;
 
 import java.util.Scanner;
 
+import android.util.Log;
+
 /**
  *
  * @author Yoda
  */
 public class Game 
 {
+	private String tag = "Game";
     private Scanner input = new Scanner(System.in);
     int first_move=0;
     int row=0;
@@ -127,12 +130,23 @@ public class Game
     {
         int i,j;
         turn = row*column;
+        for(i=0;i<column;i++)
+        {
+        	flag[i]=0;
+        }
         for(i=0;i<row;i++)
         {
-            flag[i]=0;
             for(j=0;j<column;j++)
+            {
                 mat[i][j]=connectFourApplication.mat[i][j];
+                Log.d(tag, i+" "+j+" "+mat[i][j]);
+                if(mat[i][j]!=0)
+                {
+                	flag[j] = i+1;
+                }
+            }
         }
+        
     }
 
     private void Show_Board() 
@@ -254,8 +268,6 @@ public class Game
     {
         symbol = 9;
         int col = AI_Move();
-        //System.out.println("AI MOVED TO :");
-        //mat[flag[col]++][col]=9;
         return col;
     }
 

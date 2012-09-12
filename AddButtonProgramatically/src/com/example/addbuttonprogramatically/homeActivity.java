@@ -1,6 +1,7 @@
 package com.example.addbuttonprogramatically;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class homeActivity extends Activity implements OnClickListener
 {
@@ -94,6 +96,7 @@ public class homeActivity extends Activity implements OnClickListener
 		}
 		else if(v.getId() == button_newgame.getId())
 		{
+			connectFourApplication.applicationGameMatrixInitialize();
 			intent = new Intent(context, gameActivity.class);
 			startActivity(intent);
 		}
@@ -102,6 +105,8 @@ public class homeActivity extends Activity implements OnClickListener
 			String str = dbHelper.getUserGameState();
 			if(str=="")
 			{
+				Toast.makeText(getApplicationContext(), "No Save Game Available", Toast.LENGTH_SHORT).show();
+				
 				return;
 			}
 			connectFourApplication.row = connectFourApplication.column =  (int)Math.ceil(Math.sqrt((double)str.length()));

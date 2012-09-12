@@ -66,18 +66,46 @@ public class gameActivity extends Activity implements OnClickListener{
         		button.setId(buttonNumber);
         		innerLinearLayout.addView(button);
         		++buttonNumber;
-        		
         	}
         	
         	linearLayout.addView(innerLinearLayout);
         	
-        }
-        
-        setContentView(linearLayout);        
+        }        
+        setContentView(linearLayout);
+        setButtonsInGameBoard();
         
     }
 
-    @Override
+    private void setButtonsInGameBoard() 
+    {
+    	Button v;
+    	int id,rw,col;
+    	for(int i=row-1 ,ii=0; i >=0 ; --i,ii++)
+        {
+        	
+        	LinearLayout innerLinearLayout = new LinearLayout(this);
+        	innerLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
+        	//innerLinearLayout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+        	
+        	for(int j = column-1, jj=0 ; j >= 0 ; --j,jj++)
+        	{
+        		id = i*row+jj;
+        		v = (Button)findViewById(id);
+        		if(game.mat[ii][jj]==4)
+        		{
+        			v.setBackgroundResource(R.drawable.gridwithred);
+        		}
+        		else if(game.mat[ii][jj]==9)
+        		{
+        			v.setBackgroundResource(R.drawable.blueball);
+        		}
+        		v.setText("" + id);
+        	}
+        }
+    	
+	}
+
+	@Override
     public boolean onCreateOptionsMenu(Menu menu) 
     {
         getMenuInflater().inflate(R.menu.activity_main, menu);
