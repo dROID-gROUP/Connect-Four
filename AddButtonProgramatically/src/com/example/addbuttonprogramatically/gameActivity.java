@@ -47,7 +47,7 @@ public class gameActivity extends Activity implements OnClickListener{
         linearLayout.setPadding(5, 5, 5, 5);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         int buttonNumber = 0;
-        userId = 0;
+        userId = connectFourApplication.userId;
         for(int i=0 ; i < row ; ++i)
         {
         	
@@ -89,7 +89,7 @@ public class gameActivity extends Activity implements OnClickListener{
         	
         	for(int j = column-1, jj=0 ; j >= 0 ; --j,jj++)
         	{
-        		id = i*row+jj;
+        		id = i*(row-1)+j;
         		v = (Button)findViewById(id);
         		if(game.mat[ii][jj]==4)
         		{
@@ -116,7 +116,8 @@ public class gameActivity extends Activity implements OnClickListener{
 	public void onBackPressed() 
     {    	
 		AlertDialog.Builder builderForAlertBox = new AlertDialog.Builder(this);
-		builderForAlertBox.setCancelable(false).setMessage("Do You Wish To Save This Game ?").setPositiveButton("Yes", dialogClickListner).setNegativeButton("No", dialogClickListner).show();
+		builderForAlertBox.setCancelable(false).setMessage("Do You Wish To Save This Game ?").setPositiveButton("Yes", dialogClickListner).setNegativeButton("No", dialogClickListner).
+		setCancelable(true).show(); 
 	}
 
 	public void onClick(View v) 
@@ -124,8 +125,8 @@ public class gameActivity extends Activity implements OnClickListener{
 		Log.d(tag, "CLICKED ON BUTTON ID "+String.valueOf(v.getId()));
 		
 		int id = v.getId();
-		int rw = id/row;
-		int col = id%row;
+		int rw = id/(row-1);
+		int col = id%(row-1);
 		if((col<0 || col>=column) || (game.flag[col]>=row))
         {
             Toast.makeText(getApplicationContext(), "Invalid Move", Toast.LENGTH_SHORT).show();
@@ -240,19 +241,22 @@ public class gameActivity extends Activity implements OnClickListener{
 			try 
 			{
 				ContentValues values = new ContentValues();
-				values.put(DbHelper.userId, userId);
-				values.put(DbHelper.gameState, gameState);
-				Log.d(tag, String.format("before insert %d: %s", userId, gameState));			
-				db.insertWithOnConflict(DbHelper.table, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+				values.put(DbHelper.GAME_STATE, gameState);
+				Log.d(tag, String.format("before insert %d: %s", connectFourApplication.userId, gameState));
+				
+				//db.insertWithOnConflict(DbHelper.TABLE, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+				
+				String whereClauses = DbHelper.USER_ID+" = ?";
+				String[] whereArgs = {connectFourApplication.userId+""};
+				db.updateWithOnConflict(DbHelper.TABLE, values, whereClauses, whereArgs,SQLiteDatabase.CONFLICT_IGNORE);
 				db.close();
 				Log.d(tag, "save game");
 			} 
 			catch (Exception e) 
 			{
-				db.close();db.close();
+				db.close();
 				Log.d(tag, e.toString());
-			}
-			
+			}		
 			
 			
 			return;

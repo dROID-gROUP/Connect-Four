@@ -3,9 +3,12 @@ package com.example.addbuttonprogramatically;
 import android.R.string;
 import android.app.Activity;
 import android.app.Application;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -43,8 +46,8 @@ public class settingActivity extends Activity implements android.view.View.OnCli
 	int selectedColumn;
 	String firstTurn;
 	ConnectFourApplication connectFourApplication;
-	
-	
+	DbHelper dbHelper;
+	SQLiteDatabase db;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,8 @@ public class settingActivity extends Activity implements android.view.View.OnCli
 		
 		radioGroupForFirstTurn = (RadioGroup) findViewById(R.id.radioGroup);
 		
+		connectFourApplication = (ConnectFourApplication)getApplication();
+		this.dbHelper = connectFourApplication.dbHelper;
 		addItemsOnSpinners();
 		
 	}
@@ -135,13 +140,20 @@ public class settingActivity extends Activity implements android.view.View.OnCli
 					+ ":" + spinnerForRow.getSelectedItem() + ":" + spinnerForColumn.getSelectedItem(), Toast.LENGTH_SHORT).show();
 			
 			
-			connectFourApplication = (ConnectFourApplication)getApplication();
 			connectFourApplication.row = Integer.parseInt(spinnerForRow.getSelectedItem().toString());
 			connectFourApplication.column = Integer.parseInt(spinnerForColumn.getSelectedItem().toString());
 			connectFourApplication.difficulty= Integer.parseInt(spinnerForDifficulty.getSelectedItem().toString());
 			
+			db = dbHelper.getWritableDatabase();
 			
-			
+			String whereClause = DbHelper.USER_ID+" = ?";
+			String[] whereArgs = {connectFourApplication.userId+""};
+			ContentValues values = new ContentValues();
+			values.put(DbHelper.ROW, connectFourApplication.row);
+			values.put(DbHelper.COLUMN,connectFourApplication.column);
+			values.put(DbHelper.DIFFICULTY,connectFourApplication.difficulty);
+			values.put(DbHelper.GAME_STATE, "");
+			db.updateWithOnConflict(DbHelper.TABLE, values, whereClause, whereArgs, SQLiteDatabase.CONFLICT_IGNORE);
 			finish();
 		}
 		

@@ -1,5 +1,6 @@
 package com.example.addbuttonprogramatically;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,16 +12,27 @@ import android.util.Log;
 public class DbHelper extends SQLiteOpenHelper 
 {
 	private String tag = "DbHelper";
-	static final String dbName = "connectFour.db";
-	static final String table = "SAVE_GAME";
-	static final String userId = "USER_ID";
-	static final String gameState = "GAME_STATE";
-	static final int dbVersion = 1;
+	static final String DB_NAME = "connectFour.db";
+	static final String TABLE = "user_info";
+	static final String USER_ID = "user_id";;
+	static final String USER_NAME = "user_name";
+	static final String EMAIL_ADDRESS = "email_address";
+	static final String PASSWORD = "password";
+	static final String GAME_STATE = "game_state";
+	static final String ROW = "row";
+	static final String COLUMN = "column";
+	static final String DIFFICULTY = "difficulty";
+	static final String TOTAL_GAME = "total_game";
+	static final String WIN = "win";
+	static final String LOOSE = "loose";
+	static final int DBVERSION = 6;
+	
+	
 	SQLiteDatabase db;
 	Context context;
 	public DbHelper(Context context)
 	{
-		super(context, dbName, null, dbVersion);
+		super(context, DB_NAME, null, DBVERSION);
 		Log.d(tag, "In DBHelper On Create in the constructor");
 		this.context = context;
 	}
@@ -28,33 +40,35 @@ public class DbHelper extends SQLiteOpenHelper
 	@Override
 	public void onCreate(SQLiteDatabase db) 
 	{
-		String sql = "create table "+ table + " ("+ userId +" int primary key, "+gameState+" text)";
+		String sql = "create table "+ TABLE + " ("+ USER_ID +" int primary key, "+USER_NAME+" text, "+EMAIL_ADDRESS+" text, "+PASSWORD+" text, "+GAME_STATE+" text, "+ROW+" int, "+COLUMN+" int, "+DIFFICULTY+" int, "+
+					  TOTAL_GAME+" int, "+WIN+" int, "+LOOSE+" int"+")";
 		db.execSQL(sql);
+		ContentValues  values = new ContentValues();
+		values.put(USER_ID, 0);
+		values.put(USER_NAME, "Guest");
+		values.put(EMAIL_ADDRESS,"");
+		values.put(PASSWORD, "");
+		values.put(GAME_STATE, "");
+		values.put(ROW, 5);
+		values.put(COLUMN, 5);
+		values.put(DIFFICULTY, 5);
+		values.put(TOTAL_GAME,0);
+		values.put(WIN, 0);
+		values.put(LOOSE,0);
+		db.insertWithOnConflict(TABLE, null, values, SQLiteDatabase.CONFLICT_IGNORE);
 		Log.d(tag, "In DBHelper On Create");
 	}
 
 	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){}
-
-	public String getUserGameState() 
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
 	{
-		String str="";
-		String sql = "select "+DbHelper.gameState+" from "+DbHelper.table+" where "+DbHelper.userId+" = "+ConnectFourApplication.userId;
-		db = this.getReadableDatabase();
-		Cursor cursor = db.query(table, null, null, null, null, null, null);
-		if(cursor.moveToFirst())
-		{
-			str = cursor.getString(cursor.getColumnIndex(gameState));
-		}
-		
-		String whereClause = DbHelper.userId+" = ?";
-		String[] whereArgs = {ConnectFourApplication.userId+""};
-		delete(DbHelper.table,whereClause,whereArgs);
-		
-		Log.d(tag, "in dbhelper getUserGameState userid= "+DbHelper.userId+" gamestate = "+str);
-		return str;
+		String sql = "Drop table if exists "+TABLE;
+		db.execSQL(sql);
+		onCreate(db);
 	}
 
+	
+	
 	//Delete all save games of the user
 	public void delete(String tableName, String whereClause, String[] whereArgs) 
 	{
@@ -63,5 +77,4 @@ public class DbHelper extends SQLiteOpenHelper
 		Log.d(tag,"Deleted Row = "+deletedRow);
 	}
 	
-
 }

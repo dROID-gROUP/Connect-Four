@@ -20,15 +20,16 @@
 	            android:id="@+id/emailaddresstextview"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:text="Email Address :"
+	            android:text="User Name :"
 	            android:textAppearance="?android:attr/textAppearanceLarge" />
 	
 	        <EditText
-	            android:id="@+id/emailaddressedittext"
+	            android:id="@+id/userNameEditText"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:ems="10"
-	            android:inputType="textEmailAddress" >
+	            android:inputType="text"
+	             >
 	
 	            <requestFocus />
 	        </EditText>
@@ -42,7 +43,7 @@
 	            android:textAppearance="?android:attr/textAppearanceLarge" />
 	
 	        <EditText
-	            android:id="@+id/passwordtedittext"
+	            android:id="@+id/passwordEditText"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:ems="10"

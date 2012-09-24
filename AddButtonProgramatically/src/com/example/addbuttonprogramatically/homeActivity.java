@@ -67,11 +67,20 @@ public class homeActivity extends Activity implements OnClickListener
 		button_aboutus.setOnClickListener(this);
 		
 		context = getApplicationContext();
+		
+		Log.d(tag, "before get");
+		connectFourApplication = (ConnectFourApplication)getApplication();
+		Log.d(tag, "after get");
+		
 		Log.d(tag, "On create homeActivity");
 		dbHelper = new DbHelper(this);
 		Log.d(tag, "On create homeActivity after dbhelper");
-		
+		connectFourApplication.dbHelper = dbHelper;
+		connectFourApplication.userId=0;
+		connectFourApplication.getUserInfo(connectFourApplication.userId);
 	}
+
+
 
 	@Override
 	protected void onResume() {
@@ -81,9 +90,7 @@ public class homeActivity extends Activity implements OnClickListener
 
 	public void onClick(View v) 
 	{	
-		Log.d(tag, "before get");
-		connectFourApplication = (ConnectFourApplication)getApplication();
-		Log.d(tag, "after get");
+		
 		if(v.getId() == button_login.getId())
 		{
 			intent = new Intent(context, loginActivity.class);
@@ -96,21 +103,20 @@ public class homeActivity extends Activity implements OnClickListener
 		}
 		else if(v.getId() == button_newgame.getId())
 		{
+			connectFourApplication.getUserInfo(connectFourApplication.userId);
 			connectFourApplication.applicationGameMatrixInitialize();
 			intent = new Intent(context, gameActivity.class);
 			startActivity(intent);
 		}
 		else if(v.getId() == button_resumegame.getId())
 		{
-			String str = dbHelper.getUserGameState();
-			if(str=="")
+			connectFourApplication.getUserInfo(connectFourApplication.userId);
+			if(connectFourApplication.gameState.equals(""))
 			{
-				Toast.makeText(getApplicationContext(), "No Save Game Available", Toast.LENGTH_SHORT).show();
-				
+				Toast.makeText(getApplicationContext(), "No Save Game Available", Toast.LENGTH_SHORT).show();				
 				return;
 			}
-			connectFourApplication.row = connectFourApplication.column =  (int)Math.ceil(Math.sqrt((double)str.length()));
-			connectFourApplication.populateGameMatrix(str);
+			connectFourApplication.populateGameMatrix(connectFourApplication.gameState);
 			intent = new Intent(context, gameActivity.class);
 			startActivity(intent);
 		}
