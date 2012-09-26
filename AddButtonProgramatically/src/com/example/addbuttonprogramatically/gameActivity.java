@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,14 +23,20 @@ import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 import android.text.Layout;
 
-public class gameActivity extends Activity implements OnClickListener{
+public class gameActivity extends Activity implements OnClickListener {
 
-    private Game game;
+
+	private Game game;
     private int row=6,column=6,difficulty=5,firstTurn=1,userId;
     SQLiteDatabase db;
     private String tag = "gameActivity";
     private boolean gameFinished = false;
     ConnectFourApplication connectFourApplication;
+    private Display display;
+    private int screenHeight;
+    private int screenWidth;
+    private int useableWidth;
+    private int heightOfEachRow;
     
     
 	@Override
@@ -37,14 +44,25 @@ public class gameActivity extends Activity implements OnClickListener{
     	
         super.onCreate(savedInstanceState);
         connectFourApplication= (ConnectFourApplication)getApplication();
+        
+        
+        display = getWindowManager().getDefaultDisplay();
+        connectFourApplication.screenHeight = display.getHeight();
+        connectFourApplication.screenWidth = display.getWidth();
+        screenHeight = connectFourApplication.screenHeight;
+        screenWidth =  connectFourApplication.screenWidth;
+        
+        
         row = connectFourApplication.row;
         column = connectFourApplication.column;
         difficulty = connectFourApplication.difficulty;
         game = new Game(row, column, difficulty, firstTurn,connectFourApplication);
         
         LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setId(20);
         linearLayout.setBackgroundColor(Color.BLACK);
         linearLayout.setPadding(5, 5, 5, 5);
+        useableWidth = linearLayout.getMeasuredWidth() - 10;
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         int buttonNumber = 0;
         userId = connectFourApplication.userId;
@@ -52,8 +70,9 @@ public class gameActivity extends Activity implements OnClickListener{
         {
         	
         	LinearLayout innerLinearLayout = new LinearLayout(this);
+        	innerLinearLayout.setId(i+21);
         	innerLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
-        	//innerLinearLayout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+        	innerLinearLayout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
         	
         	for(int j = 0 ; j < column ; ++j)
         	{        		
@@ -61,7 +80,7 @@ public class gameActivity extends Activity implements OnClickListener{
         		button.setOnClickListener(this);
         		button.setHeight(10);
         		button.setWidth(10);
-        		button.setBackgroundResource(R.drawable.blank);
+        		button.setBackgroundResource(R.drawable.blankbackground);
         		button.setText("" + buttonNumber);
         		button.setId(buttonNumber);
         		innerLinearLayout.addView(button);
@@ -84,6 +103,15 @@ public class gameActivity extends Activity implements OnClickListener{
 			AITurn(col,v);
         }
     }
+	
+    @Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+		
+		LinearLayout linearLayout = (LinearLayout) findViewById(21);
+		heightOfEachRow = linearLayout.getMeasuredHeight();
+		
+	}
 
     private void setButtonsInGameBoard() 
     {
@@ -94,7 +122,7 @@ public class gameActivity extends Activity implements OnClickListener{
         	
         	LinearLayout innerLinearLayout = new LinearLayout(this);
         	innerLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
-        	//innerLinearLayout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+        	innerLinearLayout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
         	
         	for(int j = column-1, jj=0 ; j >= 0 ; --j,jj++)
         	{
@@ -102,11 +130,11 @@ public class gameActivity extends Activity implements OnClickListener{
         		v = (Button)findViewById(id);
         		if(game.mat[ii][jj]==4)
         		{
-        			v.setBackgroundResource(R.drawable.gridwithred);
+        			v.setBackgroundResource(R.drawable.brown);
         		}
         		else if(game.mat[ii][jj]==9)
         		{
-        			v.setBackgroundResource(R.drawable.blueball);
+        			v.setBackgroundResource(R.drawable.blueballs);
         		}
         		v.setText("" + id);
         	}
@@ -169,9 +197,12 @@ public class gameActivity extends Activity implements OnClickListener{
 	}
 	void humanTurn(int col,View v)
 	{
+		Button button = (Button) v;
+		Log.d("nayimclick", button.getX() + " " + heightOfEachRow);
+		
 		Log.d(tag, "In Human "+String.valueOf(v.getId())+" "+col);
 		game.mat[game.flag[col]++][col]=game.symbol;
-        v.setBackgroundResource(R.drawable.gridwithred);
+        v.setBackgroundResource(R.drawable.brown);
         AlertDialog.Builder builderForAlertBox = new AlertDialog.Builder(this);
         if(game.Win(game.flag[col]-1,col))
         {
@@ -188,9 +219,10 @@ public class gameActivity extends Activity implements OnClickListener{
 	}
 	void AITurn (int col,View v)
 	{
-		 
+		 Button button = (Button) v;
+		 Log.d("nayimclick", button.getX() + " " + heightOfEachRow);
 		 Log.d(tag, "In AI "+String.valueOf(v.getId())+" "+col);
-		 v.setBackgroundResource(R.drawable.blueball);
+		 v.setBackgroundResource(R.drawable.blueballs);
 		 game.mat[game.flag[col]++][col]=game.symbol;
 		 AlertDialog.Builder builderForAlertBox = new AlertDialog.Builder(this);
 		 if(game.Win(game.flag[col]-1,col))

@@ -3,6 +3,7 @@ package com.example.addbuttonprogramatically;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.view.Display;
 
 public class ConnectFourApplication extends android.app.Application
 {
@@ -14,6 +15,11 @@ public class ConnectFourApplication extends android.app.Application
 	public int turn=0;
 	DbHelper dbHelper;
 	SQLiteDatabase db;
+	public int screenHeight;
+	public int screenWidth;
+	public Display display;
+	
+	
 	
 	@Override
 	public void onCreate() 
@@ -21,7 +27,7 @@ public class ConnectFourApplication extends android.app.Application
 		super.onCreate();
 		Log.d(tag, "In application on create");
 	}
-	
+
 	@Override
 	public void onTerminate() 
 	{
