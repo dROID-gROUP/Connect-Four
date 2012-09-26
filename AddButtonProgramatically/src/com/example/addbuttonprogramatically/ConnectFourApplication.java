@@ -11,6 +11,7 @@ public class ConnectFourApplication extends android.app.Application
 	public int[][] mat = new int[10][10];
 	public int userId=0;
 	public int row,column,difficulty,win,loose,totalGame;
+	public int turn=0;
 	DbHelper dbHelper;
 	SQLiteDatabase db;
 	
@@ -58,7 +59,8 @@ public class ConnectFourApplication extends android.app.Application
 				difficulty = cursor.getInt(cursor.getColumnIndex(DbHelper.DIFFICULTY));
 				totalGame = cursor.getInt(cursor.getColumnIndex(DbHelper.TOTAL_GAME));
 				win = cursor.getInt(cursor.getColumnIndex(DbHelper.WIN));
-				loose = cursor.getInt(cursor.getColumnIndex(DbHelper.LOOSE));			
+				loose = cursor.getInt(cursor.getColumnIndex(DbHelper.LOOSE));		
+				turn = cursor.getInt(cursor.getColumnIndex(DbHelper.TURN));
 			}
 		}
 		finally

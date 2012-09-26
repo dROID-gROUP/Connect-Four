@@ -72,6 +72,15 @@ public class settingActivity extends Activity implements android.view.View.OnCli
 		connectFourApplication = (ConnectFourApplication)getApplication();
 		this.dbHelper = connectFourApplication.dbHelper;
 		addItemsOnSpinners();
+		spinnerForDifficulty.setSelection(connectFourApplication.difficulty-1);
+		spinnerForRow.setSelection(connectFourApplication.row-1);
+		spinnerForColumn.setSelection(connectFourApplication.column-1);
+		
+		if(connectFourApplication.turn==1)
+			radioGroupForFirstTurn.check(R.id.radio0);
+		
+		else
+			radioGroupForFirstTurn.check(R.id.radio1);
 		
 	}
 	
@@ -129,10 +138,12 @@ public class settingActivity extends Activity implements android.view.View.OnCli
 			if(radioGroupForFirstTurn.getCheckedRadioButtonId() == R.id.radio0)
 			{
 				firstTurn = "Human";
+				connectFourApplication.turn = 1;
 			}
 			else if (radioGroupForFirstTurn.getCheckedRadioButtonId() == R.id.radio1) 
 			{
 				firstTurn = "Computer";
+				connectFourApplication.turn = 0;
 			}
 			
 			
@@ -152,7 +163,10 @@ public class settingActivity extends Activity implements android.view.View.OnCli
 			values.put(DbHelper.ROW, connectFourApplication.row);
 			values.put(DbHelper.COLUMN,connectFourApplication.column);
 			values.put(DbHelper.DIFFICULTY,connectFourApplication.difficulty);
+			values.put(DbHelper.TURN, connectFourApplication.turn);
 			values.put(DbHelper.GAME_STATE, "");
+			Cursor cursor = db.query(DbHelper.TABLE, null, whereClause, whereArgs, null, null, null);
+			
 			db.updateWithOnConflict(DbHelper.TABLE, values, whereClause, whereArgs, SQLiteDatabase.CONFLICT_IGNORE);
 			finish();
 		}

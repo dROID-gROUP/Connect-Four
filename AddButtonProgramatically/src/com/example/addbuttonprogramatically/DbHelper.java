@@ -1,5 +1,7 @@
 package com.example.addbuttonprogramatically;
 
+import java.util.Vector;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -25,7 +27,8 @@ public class DbHelper extends SQLiteOpenHelper
 	static final String TOTAL_GAME = "total_game";
 	static final String WIN = "win";
 	static final String LOOSE = "loose";
-	static final int DBVERSION = 6;
+	static final String TURN = "turn";
+	static final int DBVERSION = 7;
 	
 	
 	SQLiteDatabase db;
@@ -41,7 +44,7 @@ public class DbHelper extends SQLiteOpenHelper
 	public void onCreate(SQLiteDatabase db) 
 	{
 		String sql = "create table "+ TABLE + " ("+ USER_ID +" int primary key, "+USER_NAME+" text, "+EMAIL_ADDRESS+" text, "+PASSWORD+" text, "+GAME_STATE+" text, "+ROW+" int, "+COLUMN+" int, "+DIFFICULTY+" int, "+
-					  TOTAL_GAME+" int, "+WIN+" int, "+LOOSE+" int"+")";
+					  TOTAL_GAME+" int, "+WIN+" int, "+LOOSE+" int, "+TURN+" int"+")";
 		db.execSQL(sql);
 		ContentValues  values = new ContentValues();
 		values.put(USER_ID, 0);
@@ -55,6 +58,7 @@ public class DbHelper extends SQLiteOpenHelper
 		values.put(TOTAL_GAME,0);
 		values.put(WIN, 0);
 		values.put(LOOSE,0);
+		values.put(TURN, 0);
 		db.insertWithOnConflict(TABLE, null, values, SQLiteDatabase.CONFLICT_IGNORE);
 		Log.d(tag, "In DBHelper On Create");
 	}
@@ -66,7 +70,6 @@ public class DbHelper extends SQLiteOpenHelper
 		db.execSQL(sql);
 		onCreate(db);
 	}
-
 	
 	
 	//Delete all save games of the user

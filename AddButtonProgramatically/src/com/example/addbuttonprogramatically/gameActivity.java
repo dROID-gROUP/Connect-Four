@@ -73,7 +73,16 @@ public class gameActivity extends Activity implements OnClickListener{
         }        
         setContentView(linearLayout);
         setButtonsInGameBoard();
-        
+        if(connectFourApplication.turn==0)
+        {
+        	game.symbol = 9;
+	        game.turn--;
+	        int col = game.AI_Turn();
+	        int rw = row-game.flag[col]-1;
+	        int id = column*rw + col;
+	        View v = findViewById(id);
+			AITurn(col,v);
+        }
     }
 
     private void setButtonsInGameBoard() 
@@ -89,7 +98,7 @@ public class gameActivity extends Activity implements OnClickListener{
         	
         	for(int j = column-1, jj=0 ; j >= 0 ; --j,jj++)
         	{
-        		id = i*(row-1)+j;
+        		id = i*(row-1)+jj;
         		v = (Button)findViewById(id);
         		if(game.mat[ii][jj]==4)
         		{
@@ -126,7 +135,7 @@ public class gameActivity extends Activity implements OnClickListener{
 		
 		int id = v.getId();
 		int rw = id/(row-1);
-		int col = id%(row-1);
+		int col = id%(row);
 		if((col<0 || col>=column) || (game.flag[col]>=row))
         {
             Toast.makeText(getApplicationContext(), "Invalid Move", Toast.LENGTH_SHORT).show();

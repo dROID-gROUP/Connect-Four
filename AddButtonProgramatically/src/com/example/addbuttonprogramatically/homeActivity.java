@@ -116,6 +116,12 @@ public class homeActivity extends Activity implements OnClickListener
 				Toast.makeText(getApplicationContext(), "No Save Game Available", Toast.LENGTH_SHORT).show();				
 				return;
 			}
+			if(connectFourApplication.gameState.length()!=connectFourApplication.row*connectFourApplication.column)
+			{
+				Toast.makeText(getApplicationContext(), "Previously Saved Game Doesnt Match With THe Current Board Configuaration", Toast.LENGTH_SHORT).show();				
+				return;
+			}
+			
 			connectFourApplication.populateGameMatrix(connectFourApplication.gameState);
 			intent = new Intent(context, gameActivity.class);
 			startActivity(intent);
