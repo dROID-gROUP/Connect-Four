@@ -3,10 +3,12 @@ package com.example.addbuttonprogramatically;
 import java.util.Random;
 
 import android.os.Bundle;
+import android.animation.ObjectAnimator;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -17,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -37,12 +40,14 @@ public class gameActivity extends Activity implements OnClickListener {
     private int screenWidth;
     private int useableWidth;
     private int heightOfEachRow;
+    private Context context;
     
     
 	@Override
     public void onCreate(Bundle savedInstanceState) {
     	
         super.onCreate(savedInstanceState);
+        context = getApplicationContext();
         connectFourApplication= (ConnectFourApplication)getApplication();
         
         
@@ -59,10 +64,10 @@ public class gameActivity extends Activity implements OnClickListener {
         game = new Game(row, column, difficulty, firstTurn,connectFourApplication);
         
         LinearLayout linearLayout = new LinearLayout(this);
-        linearLayout.setId(20);
+        linearLayout.setId(200);
         linearLayout.setBackgroundColor(Color.BLACK);
         linearLayout.setPadding(5, 5, 5, 5);
-        useableWidth = linearLayout.getMeasuredWidth() - 10;
+        useableWidth = screenWidth - 10;
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         int buttonNumber = 0;
         userId = connectFourApplication.userId;
@@ -70,7 +75,7 @@ public class gameActivity extends Activity implements OnClickListener {
         {
         	
         	LinearLayout innerLinearLayout = new LinearLayout(this);
-        	innerLinearLayout.setId(i+21);
+        	innerLinearLayout.setId(i+201);
         	innerLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
         	innerLinearLayout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
         	
@@ -108,12 +113,12 @@ public class gameActivity extends Activity implements OnClickListener {
 	public void onWindowFocusChanged(boolean hasFocus) {
 		super.onWindowFocusChanged(hasFocus);
 		
-		LinearLayout linearLayout = (LinearLayout) findViewById(21);
+		LinearLayout linearLayout = (LinearLayout) findViewById(201);
 		heightOfEachRow = linearLayout.getMeasuredHeight();
 		
 	}
 
-    private void setButtonsInGameBoard() 
+    private void setButtonsInGameBoard()
     {
     	Button v;
     	int id,rw,col;
@@ -197,8 +202,27 @@ public class gameActivity extends Activity implements OnClickListener {
 	}
 	void humanTurn(int col,View v)
 	{
-		Button button = (Button) v;
-		Log.d("nayimclick", button.getX() + " " + heightOfEachRow);
+//		Button button = (Button) v;
+//		
+//		float buttonXcordinate = button.getX();
+//		float buttonYcordinate = (float) (heightOfEachRow * (v.getId() / row));
+//		Log.d("nayimclick", button.getX() + " " + (heightOfEachRow * (v.getId() / row) ) );
+//		
+//		
+//		ImageView image = new ImageView(context);
+//		image.setBackgroundResource(R.drawable.brown);
+//		image.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+//		image.setX(buttonXcordinate);
+//		image.setY(0);
+//		
+//		LinearLayout linearLayout = (LinearLayout) findViewById(200);
+//		linearLayout.addView(image);
+//		
+//		
+//		ObjectAnimator animator = ObjectAnimator.ofFloat(image, "y", 0 , buttonYcordinate);
+//		animator.setDuration(1000);
+//		animator.start();
+		
 		
 		Log.d(tag, "In Human "+String.valueOf(v.getId())+" "+col);
 		game.mat[game.flag[col]++][col]=game.symbol;
@@ -219,8 +243,25 @@ public class gameActivity extends Activity implements OnClickListener {
 	}
 	void AITurn (int col,View v)
 	{
-		 Button button = (Button) v;
-		 Log.d("nayimclick", button.getX() + " " + heightOfEachRow);
+//		 Button button = (Button) v;
+//		 float buttonXcordinate = button.getX();
+//		 float buttonYcordinate = (float) (heightOfEachRow * (v.getId() / row));
+//		 Log.d("nayimclick", button.getX() + " " + (heightOfEachRow * (v.getId() / row) ) );
+//		 
+//		 ImageView image = new ImageView(context);
+//		 image.setBackgroundResource(R.drawable.blueballs);
+//		 image.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+//		 image.setX(buttonXcordinate);
+//		 image.setY(0);
+//		 
+//		 LinearLayout linearLayout = (LinearLayout) findViewById(200);
+//		 linearLayout.addView(image);
+//		 
+//		 ObjectAnimator animator = ObjectAnimator.ofFloat(image, "y", 0 , buttonYcordinate);
+//		 animator.setDuration(1000);
+//		 animator.start();
+//		 
+		 
 		 Log.d(tag, "In AI "+String.valueOf(v.getId())+" "+col);
 		 v.setBackgroundResource(R.drawable.blueballs);
 		 game.mat[game.flag[col]++][col]=game.symbol;
