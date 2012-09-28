@@ -77,15 +77,15 @@ public class gameActivity extends Activity implements OnClickListener {
         	LinearLayout innerLinearLayout = new LinearLayout(this);
         	innerLinearLayout.setId(i+201);
         	innerLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
-        	innerLinearLayout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+        	innerLinearLayout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, 50));
         	
         	for(int j = 0 ; j < column ; ++j)
         	{        		
         		Button button = new Button(this);
         		button.setOnClickListener(this);
-        		button.setHeight(10);
-        		button.setWidth(10);
-        		button.setBackgroundResource(R.drawable.blankbackground);
+        		button.setHeight(50);
+        		button.setWidth(50);
+        		//button.setBackgroundResource(R.drawable.blankbackground);
         		button.setText("" + buttonNumber);
         		button.setId(buttonNumber);
         		innerLinearLayout.addView(button);
@@ -105,12 +105,13 @@ public class gameActivity extends Activity implements OnClickListener {
 	        int rw = row-game.flag[col]-1;
 	        int id = column*rw + col;
 	        View v = findViewById(id);
-			AITurn(col,v);
+			AITurn(col,rw,v);
         }
     }
 	
     @Override
 	public void onWindowFocusChanged(boolean hasFocus) {
+    	
 		super.onWindowFocusChanged(hasFocus);
 		
 		LinearLayout linearLayout = (LinearLayout) findViewById(201);
@@ -144,7 +145,6 @@ public class gameActivity extends Activity implements OnClickListener {
         		v.setText("" + id);
         	}
         }
-    	
 	}
 
 	@Override
@@ -157,6 +157,11 @@ public class gameActivity extends Activity implements OnClickListener {
     @Override
 	public void onBackPressed() 
     {    	
+    	if(gameFinished)
+    	{
+    		finish();
+    		return;
+    	}
 		AlertDialog.Builder builderForAlertBox = new AlertDialog.Builder(this);
 		builderForAlertBox.setCancelable(false).setMessage("Do You Wish To Save This Game ?").setPositiveButton("Yes", dialogClickListner).setNegativeButton("No", dialogClickListner).
 		setCancelable(true).show(); 
@@ -183,7 +188,7 @@ public class gameActivity extends Activity implements OnClickListener {
 				rw = row-game.flag[col]-1;
 				id = column*rw + col;
 		        v = findViewById(id);
-		        humanTurn(col,v);
+		        humanTurn(col,rw,v);
 			}
 	       
 	        if(!gameFinished)
@@ -194,39 +199,41 @@ public class gameActivity extends Activity implements OnClickListener {
 		        rw = row-game.flag[col]-1;
 		        id = column*rw + col;
 		        v = findViewById(id);
-				AITurn(col,v);
+				AITurn(col,rw,v);
 	        }
 		}
 		
 		
 	}
-	void humanTurn(int col,View v)
+	void humanTurn(int col, int rw, View v)
 	{
-//		Button button = (Button) v;
-//		
-//		float buttonXcordinate = button.getX();
-//		float buttonYcordinate = (float) (heightOfEachRow * (v.getId() / row));
-//		Log.d("nayimclick", button.getX() + " " + (heightOfEachRow * (v.getId() / row) ) );
-//		
-//		
-//		ImageView image = new ImageView(context);
-//		image.setBackgroundResource(R.drawable.brown);
-//		image.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-//		image.setX(buttonXcordinate);
-//		image.setY(0);
-//		
-//		LinearLayout linearLayout = (LinearLayout) findViewById(200);
-//		linearLayout.addView(image);
-//		
-//		
-//		ObjectAnimator animator = ObjectAnimator.ofFloat(image, "y", 0 , buttonYcordinate);
-//		animator.setDuration(1000);
-//		animator.start();
+		
+		
+		Button button = (Button) v;
+		
+		float buttonXcordinate = button.getX();
+		float buttonYcordinate = (float) (heightOfEachRow * (row-game.flag[col]-1));
+		Log.d("animation", button.getX() + " "  + " " + ((row-game.flag[col]-1)) );
+		
+		
+		ImageView image = new ImageView(context);
+		image.setBackgroundResource(R.drawable.brown);
+		image.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+		image.setX(buttonXcordinate);
+		image.setY(heightOfEachRow);
+		
+		LinearLayout linearLayout = (LinearLayout) findViewById(200);
+		linearLayout.addView(image);
+		
+		
+		ObjectAnimator animator = ObjectAnimator.ofFloat(image, "y", 0 , buttonYcordinate);
+		animator.setDuration(2000);
+		animator.start();
 		
 		
 		Log.d(tag, "In Human "+String.valueOf(v.getId())+" "+col);
 		game.mat[game.flag[col]++][col]=game.symbol;
-        v.setBackgroundResource(R.drawable.brown);
+        //v.setBackgroundResource(R.drawable.brown);
         AlertDialog.Builder builderForAlertBox = new AlertDialog.Builder(this);
         if(game.Win(game.flag[col]-1,col))
         {
@@ -241,29 +248,30 @@ public class gameActivity extends Activity implements OnClickListener {
          	setPositiveButton("ok", gameFinishListener).show();
         }
 	}
-	void AITurn (int col,View v)
+	void AITurn (int col, int rw, View v)
 	{
-//		 Button button = (Button) v;
-//		 float buttonXcordinate = button.getX();
-//		 float buttonYcordinate = (float) (heightOfEachRow * (v.getId() / row));
-//		 Log.d("nayimclick", button.getX() + " " + (heightOfEachRow * (v.getId() / row) ) );
-//		 
-//		 ImageView image = new ImageView(context);
-//		 image.setBackgroundResource(R.drawable.blueballs);
-//		 image.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-//		 image.setX(buttonXcordinate);
-//		 image.setY(0);
-//		 
-//		 LinearLayout linearLayout = (LinearLayout) findViewById(200);
-//		 linearLayout.addView(image);
-//		 
-//		 ObjectAnimator animator = ObjectAnimator.ofFloat(image, "y", 0 , buttonYcordinate);
-//		 animator.setDuration(1000);
-//		 animator.start();
-//		 
+		
+		 Button button = (Button) v;
+		 
+		 float buttonXcordinate = button.getX();
+		 float buttonYcordinate = (float) (heightOfEachRow * (row-game.flag[col]-1));
+		 Log.d("animation", button.getX() + " " + " " + ((row-game.flag[col]-1)) );
+		 
+		 ImageView image = new ImageView(context);
+		 image.setBackgroundResource(R.drawable.blueballs);
+		 image.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+		 image.setX(buttonXcordinate);
+		 image.setY(heightOfEachRow);
+		 
+		 LinearLayout linearLayout = (LinearLayout) findViewById(200);
+		 linearLayout.addView(image);
+		 
+		 ObjectAnimator animator = ObjectAnimator.ofFloat(image, "y", 0 , buttonYcordinate);
+		 animator.setDuration(2000);
+		 animator.start();
 		 
 		 Log.d(tag, "In AI "+String.valueOf(v.getId())+" "+col);
-		 v.setBackgroundResource(R.drawable.blueballs);
+		 //v.setBackgroundResource(R.drawable.blueballs);
 		 game.mat[game.flag[col]++][col]=game.symbol;
 		 AlertDialog.Builder builderForAlertBox = new AlertDialog.Builder(this);
 		 if(game.Win(game.flag[col]-1,col))
@@ -283,7 +291,7 @@ public class gameActivity extends Activity implements OnClickListener {
 	{		
 		public void onClick(DialogInterface dialog, int which) 
 		{			
-			finish();			
+			//finish();			
 		}
 	};
 	
