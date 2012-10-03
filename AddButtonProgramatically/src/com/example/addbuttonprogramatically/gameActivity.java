@@ -44,7 +44,8 @@ public class gameActivity extends Activity implements OnClickListener {
     
     
 	@Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) 
+	{
     	
         super.onCreate(savedInstanceState);
         context = getApplicationContext();
@@ -63,21 +64,39 @@ public class gameActivity extends Activity implements OnClickListener {
         difficulty = connectFourApplication.difficulty;
         game = new Game(row, column, difficulty, firstTurn,connectFourApplication);
         
+        
+        /*	new relative layout	*/
+        
+        
+        RelativeLayout relativeLayout = new RelativeLayout(this);
+        relativeLayout.setId(200);
+        RelativeLayout.LayoutParams relativeLayoutParams =  new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT , RelativeLayout.LayoutParams.MATCH_PARENT);
+        relativeLayout.setLayoutParams(relativeLayoutParams);
+        relativeLayout.setPadding(5, 5, 5, 5);
+        relativeLayout.setBackgroundColor(Color.GRAY);
+        
+        /*
         LinearLayout linearLayout = new LinearLayout(this);
         linearLayout.setId(200);
         linearLayout.setBackgroundColor(Color.BLACK);
         linearLayout.setPadding(5, 5, 5, 5);
+        */
+        
         useableWidth = screenWidth - 10;
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        //linearLayout.setOrientation(LinearLayout.VERTICAL);
         int buttonNumber = 0;
         userId = connectFourApplication.userId;
-        for(int i=0 ; i < row ; ++i)
+        
+        
+        for(int i=1 ; i < row ; ++i)
         {
         	
         	LinearLayout innerLinearLayout = new LinearLayout(this);
-        	innerLinearLayout.setId(i+201);
+        	innerLinearLayout.setId(i+200);
         	innerLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
-        	innerLinearLayout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, 50));
+        	RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, 50);
+        	params.addRule(RelativeLayout.BELOW, 200+(i-1));
+        	innerLinearLayout.setLayoutParams(params);
         	
         	for(int j = 0 ; j < column ; ++j)
         	{        		
@@ -92,11 +111,15 @@ public class gameActivity extends Activity implements OnClickListener {
         		++buttonNumber;
         	}
         	
-        	linearLayout.addView(innerLinearLayout);
+        	relativeLayout.addView(innerLinearLayout);
         	
-        }        
-        setContentView(linearLayout);
+        }
+        
+        
+        setContentView(relativeLayout);
+        
         setButtonsInGameBoard();
+        
         if(connectFourApplication.turn==0)
         {
         	game.symbol = 9;
@@ -126,13 +149,9 @@ public class gameActivity extends Activity implements OnClickListener {
     	for(int i=row-1 ,ii=0; i >=0 ; --i,ii++)
         {
         	
-        	LinearLayout innerLinearLayout = new LinearLayout(this);
-        	innerLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
-        	innerLinearLayout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-        	
         	for(int j = column-1, jj=0 ; j >= 0 ; --j,jj++)
         	{
-        		id = i*(row-1)+jj;
+        		id = i*column+jj;
         		v = (Button)findViewById(id);
         		if(game.mat[ii][jj]==4)
         		{
