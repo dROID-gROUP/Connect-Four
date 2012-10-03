@@ -73,7 +73,7 @@ public class gameActivity extends Activity implements OnClickListener {
         RelativeLayout.LayoutParams relativeLayoutParams =  new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT , RelativeLayout.LayoutParams.MATCH_PARENT);
         relativeLayout.setLayoutParams(relativeLayoutParams);
         relativeLayout.setPadding(5, 5, 5, 5);
-        relativeLayout.setBackgroundColor(Color.GRAY);
+        //relativeLayout.setBackgroundColor(Color.GRAY);
         
         /*
         LinearLayout linearLayout = new LinearLayout(this);
@@ -88,15 +88,14 @@ public class gameActivity extends Activity implements OnClickListener {
         userId = connectFourApplication.userId;
         
         
-        for(int i=1 ; i < row ; ++i)
+        for(int i=0 ; i < row ; ++i)
         {
         	
         	LinearLayout innerLinearLayout = new LinearLayout(this);
-        	innerLinearLayout.setId(i+200);
+        	innerLinearLayout.setId(i+1+200);
         	innerLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
         	RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, 50);
-        	params.addRule(RelativeLayout.BELOW, 200+(i-1));
-        	innerLinearLayout.setLayoutParams(params);
+        	params.addRule(RelativeLayout.BELOW, 200+(i));
         	
         	for(int j = 0 ; j < column ; ++j)
         	{        		
@@ -104,19 +103,20 @@ public class gameActivity extends Activity implements OnClickListener {
         		button.setOnClickListener(this);
         		button.setHeight(50);
         		button.setWidth(50);
-        		//button.setBackgroundResource(R.drawable.blankbackground);
+        		button.setBackgroundResource(R.drawable.blankbackground);
         		button.setText("" + buttonNumber);
         		button.setId(buttonNumber);
         		innerLinearLayout.addView(button);
         		++buttonNumber;
         	}
         	
-        	relativeLayout.addView(innerLinearLayout);
+        	relativeLayout.addView(innerLinearLayout, params);
         	
         }
         
         
         setContentView(relativeLayout);
+       
         
         setButtonsInGameBoard();
         
@@ -130,6 +130,7 @@ public class gameActivity extends Activity implements OnClickListener {
 	        View v = findViewById(id);
 			AITurn(col,rw,v);
         }
+        
     }
 	
     @Override
