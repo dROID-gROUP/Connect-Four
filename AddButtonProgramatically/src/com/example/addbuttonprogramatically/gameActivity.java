@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 import android.text.Layout;
@@ -67,6 +68,8 @@ public class gameActivity extends Activity implements OnClickListener {
         
         /*	new relative layout	*/
         
+        
+        ScrollView scrollView = new ScrollView(this);
         
         RelativeLayout relativeLayout = new RelativeLayout(this);
         relativeLayout.setId(200);
@@ -115,7 +118,8 @@ public class gameActivity extends Activity implements OnClickListener {
         }
         
         
-        setContentView(relativeLayout);
+        scrollView.addView(relativeLayout);
+        setContentView(scrollView);
        
         
         setButtonsInGameBoard();
@@ -130,6 +134,7 @@ public class gameActivity extends Activity implements OnClickListener {
 	        View v = findViewById(id);
 			AITurn(col,rw,v);
         }
+        
         
     }
 	
@@ -242,8 +247,8 @@ public class gameActivity extends Activity implements OnClickListener {
 		image.setX(buttonXcordinate);
 		image.setY(heightOfEachRow);
 		
-		LinearLayout linearLayout = (LinearLayout) findViewById(200);
-		linearLayout.addView(image);
+		RelativeLayout relativeLayout = (RelativeLayout) findViewById(200);
+		relativeLayout.addView(image);
 		
 		
 		ObjectAnimator animator = ObjectAnimator.ofFloat(image, "y", 0 , buttonYcordinate);
@@ -283,8 +288,8 @@ public class gameActivity extends Activity implements OnClickListener {
 		 image.setX(buttonXcordinate);
 		 image.setY(heightOfEachRow);
 		 
-		 LinearLayout linearLayout = (LinearLayout) findViewById(200);
-		 linearLayout.addView(image);
+		 RelativeLayout relativeLayout = (RelativeLayout) findViewById(200);
+		 relativeLayout.addView(image);
 		 
 		 ObjectAnimator animator = ObjectAnimator.ofFloat(image, "y", 0 , buttonYcordinate);
 		 animator.setDuration(2000);
