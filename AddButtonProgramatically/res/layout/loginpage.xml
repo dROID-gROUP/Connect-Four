@@ -61,7 +61,7 @@
 	                android:layout_height="wrap_content"
 	                android:text="Login"
 	                android:textStyle="bold"
-	                android:textSize="16px" />
+	                android:textSize="28px" />
 	
 	            <TextView
 	                android:id="@+id/linktoregister"

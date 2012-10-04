@@ -97,7 +97,7 @@ public class gameActivity extends Activity implements OnClickListener {
         	LinearLayout innerLinearLayout = new LinearLayout(this);
         	innerLinearLayout.setId(i+1+200);
         	innerLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
-        	RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, 50);
+        	RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
         	params.addRule(RelativeLayout.BELOW, 200+(i));
         	
         	for(int j = 0 ; j < column ; ++j)
@@ -120,7 +120,6 @@ public class gameActivity extends Activity implements OnClickListener {
         
         scrollView.addView(relativeLayout);
         setContentView(scrollView);
-       
         
         setButtonsInGameBoard();
         
@@ -132,9 +131,9 @@ public class gameActivity extends Activity implements OnClickListener {
 	        int rw = row-game.flag[col]-1;
 	        int id = column*rw + col;
 	        View v = findViewById(id);
+	        Log.d(tag, "column = "+col+" row = "+rw+" id = "+id);
 			AITurn(col,rw,v);
         }
-        
         
     }
 	

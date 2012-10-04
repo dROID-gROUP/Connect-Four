@@ -89,7 +89,7 @@
 	            android:id="@+id/registrationbutton"
 	            android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"
-	            android:text="Register New Account"	            android:textStyle="bold"	            android:textSize="16px" />
+	            android:text="Register New Account"	            android:textStyle="bold"	            android:textSize="28px" />
 	
 	        <TextView
 	            android:id="@+id/linktologin"
