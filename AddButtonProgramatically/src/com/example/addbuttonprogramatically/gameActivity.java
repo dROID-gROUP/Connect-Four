@@ -262,12 +262,15 @@ public class gameActivity extends Activity implements OnClickListener {
         if(game.Win(game.flag[col]-1,col))
         {
         	gameFinished = true;
+        	connectFourApplication.win++;
+        	connectFourApplication.totalGame++;
         	builderForAlertBox.setCancelable(false).setMessage("YOU WON\n"+"AI Says : I was going Eazy on you ;-)").
         	setPositiveButton("ok", gameFinishListener).show();
         }
         if(game.turn==0)
         {
         	gameFinished = true;
+        	connectFourApplication.totalGame++;
         	builderForAlertBox.setCancelable(false).setMessage("Game Draw\n"+"AI Says : Feeling Lucky Punk!!??").
          	setPositiveButton("ok", gameFinishListener).show();
         }
@@ -301,12 +304,15 @@ public class gameActivity extends Activity implements OnClickListener {
 		 if(game.Win(game.flag[col]-1,col))
          {
 			gameFinished = true;
+			connectFourApplication.loose++;
+        	connectFourApplication.totalGame++;
          	builderForAlertBox.setCancelable(false).setMessage("AI WON\n"+"AI Says : Well I guess it's time for another Evoulution >:P ").
          	setPositiveButton("ok", gameFinishListener).show();
          }
 		 if(game.turn==0)
          {
 			gameFinished = true;
+			connectFourApplication.totalGame++;
         	builderForAlertBox.setCancelable(false).setMessage("Game Draw\n"+"AI Says : Feeling Lucky Punk!!??").
           	setPositiveButton("ok", gameFinishListener).show();
          }
@@ -315,7 +321,15 @@ public class gameActivity extends Activity implements OnClickListener {
 	{		
 		public void onClick(DialogInterface dialog, int which) 
 		{			
-			//finish();			
+			db = connectFourApplication.dbHelper.getWritableDatabase();
+			String whereClause = DbHelper.USER_ID+" = ?";
+			String[] whereArgs = {userId+""};
+			ContentValues values  = new ContentValues();
+			values.put(DbHelper.WIN, connectFourApplication.win);
+			values.put(DbHelper.LOOSE, connectFourApplication.loose);
+			values.put(DbHelper.TOTAL_GAME, connectFourApplication.totalGame);
+			db.updateWithOnConflict(DbHelper.TABLE, values, whereClause, whereArgs, SQLiteDatabase.CONFLICT_IGNORE);	
+			db.close();
 		}
 	};
 	

@@ -16,6 +16,7 @@
         <activity android:name=".loginActivity" android:label="Login Info"></activity>
         <activity android:name=".registerActivity" android:label="Register Info"></activity>
         <activity android:name=".settingActivity" android:label="Game Settings"></activity>
+        <activity android:name=".HighScoreActivity" android:label="Hight Score"></activity>
         <activity
             android:name=".homeActivity"
             android:label="@string/title_activity_main" >

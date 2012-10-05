@@ -32,8 +32,6 @@ public class homeActivity extends Activity implements OnClickListener
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.homepage);
-		Log.d(tag,"Before");
-		Log.d(tag,"After");
 		button_newgame = (Button) findViewById(R.id.startnewgame);
 		button_resumegame = (Button) findViewById(R.id.resumegame);
 		button_gamesetting = (Button) findViewById(R.id.gamesetting);
@@ -130,7 +128,12 @@ public class homeActivity extends Activity implements OnClickListener
 		{
 			intent = new Intent(context, settingActivity.class);
 			startActivity(intent);
-		}		
+		}	
+		else if(v.getId() == button_highscores.getId())
+		{
+			intent = new Intent(context,HighScoreActivity.class);
+			startActivity(intent);
+		}
 		
 	}
 
