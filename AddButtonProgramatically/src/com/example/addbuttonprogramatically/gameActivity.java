@@ -196,8 +196,8 @@ public class gameActivity extends Activity implements OnClickListener {
 		Log.d(tag, "CLICKED ON BUTTON ID "+String.valueOf(v.getId()));
 		
 		int id = v.getId();
-		int rw = id/(row-1);
-		int col = id%(row);
+		int rw = id/(column);
+		int col = id%(column);
 		if((col<0 || col>=column) || (game.flag[col]>=row))
         {
             Toast.makeText(getApplicationContext(), "Invalid Move", Toast.LENGTH_SHORT).show();
