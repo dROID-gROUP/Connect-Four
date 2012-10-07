@@ -42,6 +42,7 @@ public class gameActivity extends Activity implements OnClickListener {
     private int useableWidth;
     private int heightOfEachRow;
     private Context context;
+    private boolean isOnCreateCalledFirstTime = false;
     
     
 	@Override
@@ -117,13 +118,16 @@ public class gameActivity extends Activity implements OnClickListener {
         	
         }
         
-        
         scrollView.addView(relativeLayout);
         setContentView(scrollView);
-        
         setButtonsInGameBoard();
-        
-        if(connectFourApplication.turn==0)
+  
+    }
+	
+	public void AIFirstMove()
+	{
+		
+		if(connectFourApplication.turn==0)
         {
         	game.symbol = 9;
 	        game.turn--;
@@ -134,16 +138,21 @@ public class gameActivity extends Activity implements OnClickListener {
 	        Log.d(tag, "column = "+col+" row = "+rw+" id = "+id);
 			AITurn(col,rw,v);
         }
-        
-    }
+		
+	}
 	
     @Override
 	public void onWindowFocusChanged(boolean hasFocus) {
     	
 		super.onWindowFocusChanged(hasFocus);
 		
-		LinearLayout linearLayout = (LinearLayout) findViewById(201);
-		heightOfEachRow = linearLayout.getMeasuredHeight();
+		if(isOnCreateCalledFirstTime == false)
+		{
+			LinearLayout linearLayout = (LinearLayout) findViewById(201);
+			heightOfEachRow = linearLayout.getMeasuredHeight();
+			isOnCreateCalledFirstTime = true;
+			AIFirstMove();
+		}
 		
 	}
 
@@ -192,7 +201,9 @@ public class gameActivity extends Activity implements OnClickListener {
 	}
 
 	public void onClick(View v) 
-	{		
+	{
+		
+		
 		Log.d(tag, "CLICKED ON BUTTON ID "+String.valueOf(v.getId()));
 		
 		int id = v.getId();
@@ -239,7 +250,6 @@ public class gameActivity extends Activity implements OnClickListener {
 		float buttonYcordinate = (float) (heightOfEachRow * (row-game.flag[col]-1));
 		Log.d("animation", button.getX() + " "  + " " + ((row-game.flag[col]-1)) );
 		
-		
 		ImageView image = new ImageView(context);
 		image.setBackgroundResource(R.drawable.brown);
 		image.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
@@ -282,7 +292,7 @@ public class gameActivity extends Activity implements OnClickListener {
 		 
 		 float buttonXcordinate = button.getX();
 		 float buttonYcordinate = (float) (heightOfEachRow * (row-game.flag[col]-1));
-		 Log.d("animation", button.getX() + " " + " " + ((row-game.flag[col]-1)) );
+		 Log.d("animation", button.getX() + " " + button.getId()+ " " + ((row-game.flag[col]-1)) );
 		 
 		 ImageView image = new ImageView(context);
 		 image.setBackgroundResource(R.drawable.blueballs);
