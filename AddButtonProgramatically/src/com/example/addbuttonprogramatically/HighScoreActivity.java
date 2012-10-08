@@ -39,8 +39,10 @@ public class HighScoreActivity extends Activity
 		
 		scoreListView = (ListView) findViewById(R.id.listview);
 		
-		setContentView(R.layout.highscore);
 		popuLatePage();
+		
+		setContentView(R.layout.highscore);
+		
 	}
 	private void popuLatePage() 
 	{
