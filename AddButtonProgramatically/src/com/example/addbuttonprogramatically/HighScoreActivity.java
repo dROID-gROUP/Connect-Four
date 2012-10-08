@@ -25,66 +25,38 @@ public class HighScoreActivity extends Activity
 	ListView scoreListView;
 	SimpleCursorAdapter adapter;
 	
-	static final String[] FROM = { DbHelper.USER_NAME };
-	static final int[] TO = { R.id.username };
+	static final String[] FROM = { DbHelper.USER_NAME, DbHelper.WIN, DbHelper.TOTAL_GAME };
+	static final int[] TO = { R.id.username, R.id.win, R.id.gameplayed };
 	
 	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
+		
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.highscore);
+		
 		connectFourApplication = (ConnectFourApplication)getApplication();
 		dbHelper = connectFourApplication.dbHelper;
 		
 		scoreListView = (ListView) findViewById(R.id.listview);
-		
 		popuLatePage();
-		
-		setContentView(R.layout.highscore);
 		
 	}
 	private void popuLatePage() 
 	{
-		
-		/*
-		
-		db = dbHelper.getReadableDatabase();
-		String orderBy =  "win "+"DESC";
-		Cursor cursor = db.query(DbHelper.TABLE, null, null, null, null, null, orderBy);
-		if(cursor.getCount()>0)
-		{
-			cursor.moveToFirst();
-			int lenth = cursor.getCount();
-			String userName;
-			int win;
-			int gamePlayed;
-			for(int i=0;i<lenth;i++)
-			{
-				TextView textView = new TextView(this);
-				userName = cursor.getString(cursor.getColumnIndex("user_name"));
-				gamePlayed = cursor.getInt(cursor.getColumnIndex("total_game"));
-				win = cursor.getInt(cursor.getColumnIndex("win"));
-				textView.setText(userName+"    "+gamePlayed+"    "+win);
-				linearLayout.addView(textView);
-			}
-		}
-		
-		*/
-		
-		
 
+		
 		db = dbHelper.getReadableDatabase();
 		String orderBy =  "win "+"DESC";
 		Cursor cursor = db.query(DbHelper.TABLE, null, null, null, null, null, orderBy);
-		
-		
-		Log.d("start", cursor.getCount()+"");
-		
 		
 		startManagingCursor(cursor);
-		adapter = new SimpleCursorAdapter(this, R.layout.scorerow, cursor, FROM, TO);
+		adapter = new SimpleCursorAdapter(getApplicationContext(), R.layout.scorerow, cursor, FROM, TO);
 		scoreListView.setAdapter(adapter);
+		
+		db.close();
 		
 		
 	}

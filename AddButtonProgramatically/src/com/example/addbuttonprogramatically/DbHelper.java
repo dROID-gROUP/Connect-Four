@@ -43,7 +43,7 @@ public class DbHelper extends SQLiteOpenHelper
 	@Override
 	public void onCreate(SQLiteDatabase db) 
 	{
-		String sql = "create table "+ TABLE + " ( _id INTEGER primary key AUTOINCREMENT, "+ USER_ID +" int, "+USER_NAME+" text, "+EMAIL_ADDRESS+" text, "+PASSWORD+" text, "+GAME_STATE+" text, "+ROW+" int, "+COLUMN+" int, "+DIFFICULTY+" int, "+
+		String sql = "create table "+ TABLE + " ( _id integer primary key autoincrement, "+ USER_ID +" int, "+USER_NAME+" text, "+EMAIL_ADDRESS+" text, "+PASSWORD+" text, "+GAME_STATE+" text, "+ROW+" int, "+COLUMN+" int, "+DIFFICULTY+" int, "+
 					  TOTAL_GAME+" int, "+WIN+" int, "+LOOSE+" int, "+TURN+" int"+")";
 		db.execSQL(sql);
 		ContentValues  values = new ContentValues();
