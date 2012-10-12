@@ -43,7 +43,10 @@ public class gameActivity extends Activity implements OnClickListener {
     private int heightOfEachRow;
     private Context context;
     private boolean isOnCreateCalledFirstTime = false;
-    
+    private int undoHumanMove = -1;
+    private Button undoHumanMoveButton;
+    private int undoAImove = -1;
+    private Button undoAImoveButton;
     
 	@Override
     public void onCreate(Bundle savedInstanceState) 
@@ -127,7 +130,7 @@ public class gameActivity extends Activity implements OnClickListener {
 	public void AIFirstMove()
 	{
 		
-		if(connectFourApplication.turn==0)
+		if(connectFourApplication.turn==0 )
         {
         	game.symbol = 9;
 	        game.turn--;
@@ -151,6 +154,8 @@ public class gameActivity extends Activity implements OnClickListener {
 			LinearLayout linearLayout = (LinearLayout) findViewById(201);
 			heightOfEachRow = linearLayout.getMeasuredHeight();
 			isOnCreateCalledFirstTime = true;
+			if(connectFourApplication.gameState.contains("4") || connectFourApplication.gameState.contains("9"))
+				return;
 			AIFirstMove();
 		}
 		
@@ -267,6 +272,8 @@ public class gameActivity extends Activity implements OnClickListener {
 		
 		Log.d(tag, "In Human "+String.valueOf(v.getId())+" "+col);
 		game.mat[game.flag[col]++][col]=game.symbol;
+		undoHumanMove = col;
+		undoHumanMoveButton= button;
         //v.setBackgroundResource(R.drawable.brown);
         AlertDialog.Builder builderForAlertBox = new AlertDialog.Builder(this);
         if(game.Win(game.flag[col]-1,col))
@@ -310,6 +317,10 @@ public class gameActivity extends Activity implements OnClickListener {
 		 Log.d(tag, "In AI "+String.valueOf(v.getId())+" "+col);
 		 //v.setBackgroundResource(R.drawable.blueballs);
 		 game.mat[game.flag[col]++][col]=game.symbol;
+		 
+		 undoAImove = col;
+		 undoAImoveButton= button;
+		 
 		 AlertDialog.Builder builderForAlertBox = new AlertDialog.Builder(this);
 		 if(game.Win(game.flag[col]-1,col))
          {

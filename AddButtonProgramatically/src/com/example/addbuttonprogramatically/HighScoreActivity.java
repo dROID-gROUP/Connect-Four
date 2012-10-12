@@ -55,8 +55,8 @@ public class HighScoreActivity extends Activity
 		startManagingCursor(cursor);
 		adapter = new SimpleCursorAdapter(getApplicationContext(), R.layout.scorerow, cursor, FROM, TO);
 		scoreListView.setAdapter(adapter);
-		
 		db.close();
+		
 		
 		
 	}
