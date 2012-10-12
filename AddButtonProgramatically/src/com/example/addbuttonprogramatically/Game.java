@@ -45,86 +45,7 @@ public class Game
         //initiateGame();
     }
     
-    private void initiateGame()
-    {
-        int Human = 0,AI=0,col=0;
-        int turn = row*column;
-        do
-        {
-            if(first_move==1)
-            {
-                col = Human_Turn();
-                System.out.println("Human = "+col);
-                Show_Board();
-                if(Win(flag[col]-1,col))
-                {
-                    Human = 1;
-                    break;
-                }
-
-                turn--;
-                if(turn==0)
-                    break;
-
-                col = AI_Turn();
-                System.out.println("AI = "+col);
-                if(col==-1)break;
-
-                Show_Board();
-                if(Win(flag[col]-1,col))
-                {
-                    AI = 1;
-                    break;
-                }
-                turn--;
-            }
-            else
-            {
-                col = AI_Turn();
-                Show_Board();
-                if(Win(flag[col]-1,col))
-                {
-                    AI = 1;
-                    break;
-                }
-
-                turn--;
-                if(turn==0)break;
-
-                Human_Turn();
-                Show_Board();
-                if(Win(flag[col]-1,col))
-                {
-                    Human = 1;
-                    break;
-                }
-                turn--;
-            }
-
-        }while(turn!=0);
-        if(Human==1)System.out.println("YOU WON\n"+"AI Says : I was going Eazy on you ;-)");
-        else if(AI==1)System.out.println("AI WON\n"+"AI Says : Well I guess it's time for another Evoulution >:P ");
-        else System.out.println("AI Says : Consider yourself lucky >:P ");
-    }
-    public int Human_Turn()
-    {
-        int col=0;
-        while(true)
-        {       
-            System.out.println("Your Move : ");
-            col = input.nextInt();
-                    
-            if((col<0 || col>=20)|| (flag[col]>=row))
-            {
-                System.out.println("Invalid Move");
-                continue;
-            }
-            break;
-        }
-        symbol = 4;
-        mat[flag[col]++][col]=4;
-        return col;
-    }
+    
 
     private void initializeVariables() 
     {
@@ -149,29 +70,6 @@ public class Game
         
     }
 
-    private void Show_Board() 
-    {
-        int i,j;
-        for(i=0;i<column;i++)
-            if(i==0)
-                System.out.println("      "+i);
-            else
-                System.out.println("   "+i);
-
-        System.out.println();
-        System.out.println();
-        System.out.println();
-
-        for(i=row-1;i>=0;i--)
-        {
-            System.out.println("   "+i);
-            for(j=0;j<column;j++)
-                System.out.println("   "+(mat[i][j]));
-            System.out.println();
-            System.out.println();               
-        }
-        return;
-    }
 
     boolean Win(int x, int y) 
     {
@@ -287,7 +185,6 @@ public class Game
             flag[i]++;
 
             n = Tree(i,4,1,mx);
-        //  cout<<"mx = "<<mx<<" n = "<<n<<endl;
             if(mx<=n)
             {
                 if(mx<n)

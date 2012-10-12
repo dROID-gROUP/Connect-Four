@@ -72,7 +72,6 @@ public class registerActivity extends Activity implements OnClickListener
 		}
 		else if(buttonRegistration.getId() == v.getId())
 		{
-			Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
 			String userName = this.userName.getText().toString();
 			String emailAdd = emailAddress.getText().toString();
 			String passWord = this.passWord.getText().toString();
@@ -113,6 +112,7 @@ public class registerActivity extends Activity implements OnClickListener
 				values.put(DbHelper.WIN, 0);
 				values.put(DbHelper.LOOSE,0);
 				db.insertWithOnConflict(DbHelper.TABLE, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+				Toast.makeText(context, "You have registered successfully "+userName, Toast.LENGTH_SHORT).show();
 			}
 			finally
 			{
