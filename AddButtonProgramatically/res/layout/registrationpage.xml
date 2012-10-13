@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"    android:fillViewport="true"    android:background="@drawable/grape"
+    android:layout_width="match_parent"    android:fillViewport="true"    android:background="#20428A"
     android:layout_height="match_parent" >
 
 	<RelativeLayout
@@ -18,7 +18,7 @@
 	            android:id="@+id/textView1"
 	            android:layout_width="140dp"
 	            android:layout_height="wrap_content"
-	            android:text="User Name :"
+	            android:text="User Name :"	            android:textColor="#C4CDE0"
 	            android:textAppearance="?android:attr/textAppearanceLarge" />
 		
 	    <EditText
@@ -35,7 +35,7 @@
 	        android:id="@+id/textView2"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="Email Address : "
+	        android:text="Email Address : "	        android:textColor="#C4CDE0"
 	        android:paddingTop="10dp"
 	        android:textAppearance="?android:attr/textAppearanceLarge" />
 	
@@ -53,7 +53,7 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:paddingTop="10dp"
-	        android:text="Password : "
+	        android:text="Password : "	        android:textColor="#C4CDE0"
 	        android:textAppearance="?android:attr/textAppearanceLarge" />
 	
 	    <EditText
@@ -68,7 +68,7 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:paddingTop="10dp"
-	        android:text="Retype Password : "
+	        android:text="Retype Password : "	        android:textColor="#C4CDE0"
 	        android:textAppearance="?android:attr/textAppearanceLarge" />
 	
 	    <EditText

@@ -44,8 +44,8 @@ public class loginActivity extends Activity implements OnClickListener{
 		registerTextView.setOnClickListener(this);
 		
 		buttonLogin = (Button) findViewById(R.id.loginbutton);
-		buttonLogin.setBackgroundResource(R.drawable.button);
-		buttonLogin.setTextColor(Color.WHITE);
+		buttonLogin.setBackgroundResource(R.drawable.button_style);
+//		buttonLogin.setTextColor(Color.WHITE);
 		buttonLogin.setOnClickListener(this);
 		
 	}

@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:fillViewport="true"
-    android:background="@drawable/grape"
+    android:background="#20428A"
     android:layout_height="match_parent" >
 
 	<RelativeLayout
@@ -22,6 +22,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:text="User Name :"
+	            android:textColor="#C4CDE0"
 	            android:textAppearance="?android:attr/textAppearanceLarge" />
 	
 	        <EditText
@@ -40,6 +41,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:text="Password :"
+	            android:textColor="#C4CDE0"
 	            android:layout_marginTop="10dp"
 	            android:textAppearance="?android:attr/textAppearanceLarge" />
 	

@@ -40,20 +40,20 @@ public class homeActivity extends Activity implements OnClickListener
 		button_login = (Button) findViewById(R.id.login);
 		button_aboutus = (Button) findViewById(R.id.aboutus);
 		
-		button_newgame.setBackgroundResource(R.drawable.button);
-		button_newgame.setTextColor(Color.WHITE);
-		button_resumegame.setBackgroundResource(R.drawable.button);
-		button_resumegame.setTextColor(Color.WHITE);
-		button_gamesetting.setBackgroundResource(R.drawable.button);
-		button_gamesetting.setTextColor(Color.WHITE);
-		button_highscores.setBackgroundResource(R.drawable.button);
-		button_highscores.setTextColor(Color.WHITE);
-		button_register.setBackgroundResource(R.drawable.button);
-		button_register.setTextColor(Color.WHITE);
-		button_login.setBackgroundResource(R.drawable.button);
-		button_login.setTextColor(Color.WHITE);
-		button_aboutus.setBackgroundResource(R.drawable.button);
-		button_aboutus.setTextColor(Color.WHITE);
+		button_newgame.setBackgroundResource(R.drawable.button_style);
+//		button_newgame.setTextColor(Color.WHITE);
+		button_resumegame.setBackgroundResource(R.drawable.button_style);
+//		button_resumegame.setTextColor(Color.WHITE);
+		button_gamesetting.setBackgroundResource(R.drawable.button_style);
+//		button_gamesetting.setTextColor(Color.WHITE);
+		button_highscores.setBackgroundResource(R.drawable.button_style);
+//		button_highscores.setTextColor(Color.WHITE);
+		button_register.setBackgroundResource(R.drawable.button_style);
+//		button_register.setTextColor(Color.WHITE);
+		button_login.setBackgroundResource(R.drawable.button_style);
+//		button_login.setTextColor(Color.WHITE);
+		button_aboutus.setBackgroundResource(R.drawable.button_style);
+//		button_aboutus.setTextColor(Color.WHITE);
 		
 		
 		button_newgame.setOnClickListener(this);

@@ -42,8 +42,8 @@ public class registerActivity extends Activity implements OnClickListener
 		loginTextView.setOnClickListener(this);
 		
 		buttonRegistration = (Button) findViewById(R.id.registrationbutton);
-		buttonRegistration.setBackgroundResource(R.drawable.button);
-		buttonRegistration.setTextColor(Color.WHITE);
+		buttonRegistration.setBackgroundResource(R.drawable.button_style);
+//		buttonRegistration.setTextColor(Color.WHITE);
 		
 		
 		buttonRegistration.setOnClickListener(this);

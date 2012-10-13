@@ -62,8 +62,8 @@ public class settingActivity extends Activity implements android.view.View.OnCli
 		spinnerForColumn	 = (Spinner) findViewById(R.id.spinnerForColumn);
 		
 		buttonSetting 		 = (Button) findViewById(R.id.buttonSetting);
-		buttonSetting.setBackgroundResource(R.drawable.button);
-		buttonSetting.setTextColor(Color.WHITE);
+		buttonSetting.setBackgroundResource(R.drawable.button_style);
+//		buttonSetting.setTextColor(Color.WHITE);
 		
 		buttonSetting.setOnClickListener(this);
 		
